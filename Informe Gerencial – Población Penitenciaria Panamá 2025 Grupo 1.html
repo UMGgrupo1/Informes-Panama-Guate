@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Informe Gerencial – Población Penitenciaria Panamá 2025</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:#F0F2F5;color:#2C3E50;font-size:14px;}
+.nav{background:#1A3A5C;position:sticky;top:0;z-index:200;padding:0 20px;display:flex;gap:2px;overflow-x:auto;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.81em;white-space:nowrap;padding:13px 11px;border-bottom:3px solid transparent;transition:.2s;}
+.nav a:hover,.nav a.act{color:#fff;border-bottom-color:#F39C12;}
+.cover{background:linear-gradient(160deg,#0D2137 0%,#1A3A5C 45%,#2980B9 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cv-univ{font-size:.77em;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:22px;}
+.cv-badge{display:inline-block;background:#F39C12;color:#fff;font-size:.77em;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 20px;border-radius:20px;margin-bottom:20px;}
+.cover h1{font-size:2.6em;font-weight:700;color:#fff;line-height:1.2;margin-bottom:12px;}
+.cover h2{font-size:1.05em;color:rgba(255,255,255,.8);font-weight:400;margin-bottom:8px;}
+.cover h3{font-size:.92em;color:rgba(255,255,255,.6);font-weight:400;margin-bottom:34px;}
+.cv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-bottom:38px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:30px;padding:7px 17px;font-size:.82em;}
+.cv-div{width:55px;height:3px;background:#F39C12;margin:0 auto 30px;}
+.int-title{font-size:.8em;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:13px;}
+.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:620px;margin:0 auto 32px;}
+.int-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 16px;text-align:left;}
+.int-name{font-size:.87em;font-weight:600;color:#fff;margin-bottom:3px;}
+.int-code{font-size:.75em;color:rgba(255,255,255,.42);font-family:monospace;}
+.cv-foot{font-size:.78em;color:rgba(255,255,255,.3);}
+.page{max-width:1220px;margin:0 auto;padding:22px 18px;}
+.sec{background:#fff;border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.sec-hdr{display:flex;align-items:center;gap:11px;margin-bottom:18px;padding-bottom:13px;border-bottom:2px solid #F0F2F5;}
+.sec-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.s-az{background:#EBF2FA;} .s-ve{background:#EAF7EE;} .s-do{background:#FEF9E7;} .s-mo{background:#F4ECF7;} .s-rj{background:#FDECEA;}
+.sec-title{font-size:1.18em;font-weight:700;color:#1A3A5C;}
+.sub{font-size:.96em;font-weight:700;color:#2980B9;margin:17px 0 10px;display:flex;align-items:center;gap:7px;}
+.sub::before{content:'';display:block;width:4px;height:14px;background:#2980B9;border-radius:2px;}
+.kpi-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px;margin-bottom:20px;}
+.kpi{border-radius:11px;padding:15px;border-left:4px solid #1A3A5C;background:#F8FAFD;}
+.kpi.ve{border-left-color:#27AE60;background:#F0FAF3;} .kpi.rj{border-left-color:#C0392B;background:#FDF2F1;}
+.kpi.do{border-left-color:#F39C12;background:#FEF9EE;} .kpi.mo{border-left-color:#8E44AD;background:#F8F0FB;}
+.kpi.te{border-left-color:#16A085;background:#F0F9F7;}
+.kv{font-size:1.75em;font-weight:700;color:#1A3A5C;margin-bottom:3px;line-height:1;}
+.kv.ve{color:#27AE60;} .kv.rj{color:#C0392B;} .kv.do{color:#E67E22;} .kv.mo{color:#8E44AD;}
+.kl{font-size:.71em;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px;}
+.ks{font-size:.76em;color:#AAB7B8;}
+.tw{overflow-x:auto;border-radius:9px;border:1px solid #E8ECF0;margin:9px 0;}
+table{width:100%;border-collapse:collapse;font-size:.85em;}
+thead th{background:#1A3A5C;color:#fff;padding:10px 12px;text-align:center;font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody td{padding:9px 12px;text-align:center;border-bottom:1px solid #F0F2F5;color:#444;}
+tbody td:first-child{text-align:left;font-weight:600;color:#1A3A5C;}
+tbody tr:nth-child(even) td{background:#F8FAFD;}
+tbody tr:hover td{background:#EBF5FB;}
+.badge{display:inline-block;padding:3px 9px;border-radius:10px;font-size:.74em;font-weight:700;color:#fff;}
+.b-ve{background:#27AE60;} .b-rj{background:#C0392B;} .b-do{background:#E67E22;}
+.b-az{background:#1A3A5C;} .b-am{background:#F39C12;} .b-ex{background:#7B241C;}
+.cc{position:relative;margin:13px 0;}
+.cc.h400{height:400px;} .cc.h380{height:380px;} .cc.h320{height:320px;} .cc.h280{height:280px;}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cn{font-size:.78em;color:#7F8C8D;font-style:italic;text-align:center;margin-top:7px;padding:8px 13px;background:#F8FAFD;border-radius:7px;line-height:1.6;}
+.txt{background:#F8FAFD;border-left:4px solid #2980B9;padding:12px 15px;border-radius:0 8px 8px 0;margin:9px 0;font-size:.88em;line-height:1.72;color:#444;}
+.txt.ve{border-left-color:#27AE60;} .txt.do{border-left-color:#F39C12;}
+.txt.rj{border-left-color:#C0392B;} .txt.mo{border-left-color:#8E44AD;}
+.s2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.sbox{background:#F8FAFD;border-radius:10px;padding:15px;border:1px solid #E8ECF0;}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #EEF0F3;font-size:.85em;}
+.sr:last-child{border-bottom:none;}
+.sl{color:#7F8C8D;} .sv{font-weight:700;color:#1A3A5C;}
+.ref-az{font-size:.7em;font-weight:400;background:#D6EAF8;color:#1A5276;padding:2px 8px;border-radius:8px;margin-left:5px;}
+.ref-ve{font-size:.7em;font-weight:400;background:#D5F5E3;color:#1E8449;padding:2px 8px;border-radius:8px;margin-left:5px;}
+.ref-mo{font-size:.7em;font-weight:400;background:#F4ECF7;color:#6C3483;padding:2px 8px;border-radius:8px;margin-left:5px;}
+.pc{border-radius:11px;padding:18px;margin-bottom:11px;}
+.pc.p1{background:#FDECEA;border-left:5px solid #C0392B;}
+.pc.p2{background:#FEF9EE;border-left:5px solid #E67E22;}
+.pc.p3{background:#EBF2FA;border-left:5px solid #2980B9;}
+.pc.p4{background:#EAF7EE;border-left:5px solid #27AE60;}
+.pc h4{font-size:.91em;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pc.p1 h4{color:#922B21;} .pc.p2 h4{color:#784212;} .pc.p3 h4{color:#1A5276;} .pc.p4 h4{color:#1E8449;}
+.pn{color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.77em;font-weight:700;flex-shrink:0;}
+.p1 .pn{background:#C0392B;} .p2 .pn{background:#E67E22;} .p3 .pn{background:#2980B9;} .p4 .pn{background:#27AE60;}
+.pc p{font-size:.85em;color:#444;line-height:1.65;}
+.pa{border-radius:6px;padding:8px 11px;margin-top:9px;font-size:.82em;}
+.p1 .pa{background:rgba(192,57,43,.1);color:#7B241C;}
+.p2 .pa{background:rgba(230,126,34,.1);color:#784212;}
+.p3 .pa{background:rgba(41,128,185,.1);color:#1A5276;}
+.p4 .pa{background:rgba(39,174,96,.1);color:#1E8449;}
+.pa strong{font-weight:700;}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.card{border-radius:12px;padding:18px;}
+.card.concl{background:#EBF2FA;border-top:4px solid #2980B9;}
+.card.recom{background:#EAF7EE;border-top:4px solid #27AE60;}
+.card h4{font-size:.86em;font-weight:700;color:#1A3A5C;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.card.recom h4{color:#1E8449;}
+.cb{font-size:.69em;background:#1A3A5C;color:#fff;padding:2px 7px;border-radius:7px;white-space:nowrap;}
+.card.recom .cb{background:#27AE60;}
+.card p{font-size:.83em;color:#444;line-height:1.62;}
+.hc{background:#FEF9EE;border-left:4px solid #F39C12;border-radius:0 9px 9px 0;padding:12px 15px;margin:7px 0;font-size:.87em;line-height:1.6;}
+.hc strong{color:#E67E22;}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:11px;}
+.oc{background:#F8FAFD;border-radius:10px;padding:15px;border-top:3px solid #2980B9;display:flex;gap:11px;}
+.on{width:30px;height:30px;background:#1A3A5C;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.83em;flex-shrink:0;}
+.oc h4{font-size:.86em;font-weight:700;color:#1A3A5C;margin-bottom:5px;}
+.oc p{font-size:.79em;color:#555;line-height:1.55;}
+.reg-formula{background:#1A3A5C;color:#fff;border-radius:10px;padding:14px 22px;text-align:center;font-size:1.1em;font-family:monospace;margin:14px 0;letter-spacing:.5px;}
+.proy-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0;}
+.proy{background:#FEF9EE;border:2px solid #F39C12;border-radius:12px;padding:16px;text-align:center;}
+.proy-val{font-size:1.7em;font-weight:700;color:#C0392B;margin-bottom:4px;}
+.proy-lbl{font-size:.8em;color:#7F8C8D;}
+footer{background:#1A3A5C;color:rgba(255,255,255,.6);text-align:center;padding:20px;font-size:.78em;margin-top:8px;}
+footer strong{color:rgba(255,255,255,.9);}
+@media(max-width:768px){
+  .cover h1{font-size:1.8em;} .int-grid,.cgrid,.s2,.cg{grid-template-columns:1fr;}
+  .kpi-g{grid-template-columns:repeat(2,1fr);} .proy-g{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cv-univ">Universidad Mariano Gálvez de Guatemala &nbsp;|&nbsp; Grupo 1 &nbsp;|&nbsp; Informe Gerencial</div>
+  <div class="cv-badge">Informe Gerencial 2025</div>
+  <h1>Población Penitenciaria<br>República de Panamá</h1>
+  <h2>Análisis Descriptivo, Predictivo y Prescriptivo</h2>
+  <h3>Período Enero – Diciembre 2025</h3>
+  <div class="cv-chips">
+    <span class="chip">📅 Enero – Diciembre 2025</span>
+    <span class="chip">🏛 9 Provincias</span>
+    <span class="chip">🏢 20 Centros Penitenciarios</span>
+    <span class="chip">👥 24,701 PPL Promedio</span>
+    <span class="chip">📋 296,407 PPL Acumulado</span>
+  </div>
+  <div class="cv-div"></div>
+  <div class="int-title">Integrantes del Grupo 1</div>
+  <div class="int-grid">
+    <div class="int-card"><div class="int-name">Elder Denilson Hernández López</div><div class="int-code">1521-21-10977</div></div>
+    <div class="int-card"><div class="int-name">Henry Danilo López Figueroa</div><div class="int-code">1521-21-14118</div></div>
+    <div class="int-card"><div class="int-name">Joshuan Efraín Bran Palencia</div><div class="int-code">1521-20-13701</div></div>
+    <div class="int-card"><div class="int-name">Delia Carmelina Cun Veloso</div><div class="int-code">1521-22-6012</div></div>
+  </div>
+  <div class="cv-foot">Fuente: Dirección General del Sistema Penitenciario (DGSP) – República de Panamá 2025</div>
+</div>
+
+<nav class="nav">
+  <a href="#resumen">📋 Resumen</a>
+  <a href="#objetivos">🎯 Objetivos</a>
+  <a href="#descriptivo">📊 Descriptivo</a>
+  <a href="#graficos">📈 Gráficos</a>
+  <a href="#predictivo">🔮 Predictivo</a>
+  <a href="#hallazgos">🔍 Hallazgos</a>
+  <a href="#prescriptivo">💡 Prescriptivo</a>
+  <a href="#conclusiones">✅ Conclusiones</a>
+  <a href="#recomendaciones">🚀 Recomendaciones</a>
+  <a href="#plan">📋 Plan de Acción</a>
+</nav>
+
+<div class="page">
+
+<!-- RESUMEN -->
+<div class="sec" id="resumen">
+  <div class="sec-hdr"><div class="sec-ico s-az">📋</div><div class="sec-title">Resumen Ejecutivo</div></div>
+  <div class="kpi-g">
+    <div class="kpi"><div class="kl">Total Acumulado</div><div class="kv">296,407</div><div class="ks">PPL registrados en 2025</div></div>
+    <div class="kpi do"><div class="kl">Promedio Mensual</div><div class="kv do">24,701</div><div class="ks">PPL por mes</div></div>
+    <div class="kpi ve"><div class="kl">Máximo</div><div class="kv ve">27,573</div><div class="ks">Junio 2025</div></div>
+    <div class="kpi rj"><div class="kl">Mínimo</div><div class="kv rj">21,363</div><div class="ks">Julio 2025</div></div>
+    <div class="kpi mo"><div class="kl">Rango Anual</div><div class="kv mo">6,210</div><div class="ks">Diferencia Max–Min</div></div>
+    <div class="kpi te"><div class="kl">% Condenados Prom.</div><div class="kv" style="color:#16A085">64.5%</div><div class="ks">vs 35.5% procesados</div></div>
+  </div>
+  <div class="txt">El sistema penitenciario de Panamá registró durante 2025 una población promedio de <strong>24,701 personas privadas de libertad (PPL)</strong>. La media mensual fue de 24,700.6 con una desviación estándar de 2,634.6, evidenciando alta variabilidad. El punto más crítico fue la <strong>caída de julio (−6,210 PPL vs junio)</strong>, que constituye el mayor descenso mensual del año. El modelo de regresión lineal revela una <strong>tendencia descendente de −466 PPL por mes</strong> (R²=0.41, p=0.026).</div>
+</div>
+
+<!-- OBJETIVOS -->
+<div class="sec" id="objetivos">
+  <div class="sec-hdr"><div class="sec-ico s-az">🎯</div><div class="sec-title">Objetivos del Análisis</div></div>
+  <div class="txt" style="margin-bottom:18px;">El presente informe se propone alcanzar los siguientes hitos analíticos para fortalecer la toma de decisiones en el Sistema Penitenciario de Panamá:</div>
+  <div class="og">
+    <div class="oc"><div class="on">1</div><div><h4>Determinar el comportamiento base de la población</h4><p>Establecer el promedio mensual operativo (media) y la volatilidad de los datos (desviación estándar) durante el año 2025 para comprender la carga habitual del sistema.</p></div></div>
+    <div class="oc"><div class="on">2</div><div><h4>Identificar disparidades regionales en la capacidad instalada</h4><p>Localizar y categorizar por niveles de severidad (Normal, Severo, Crítico y Extremo) el índice de hacinamiento en cada provincia para priorizar la asignación de recursos.</p></div></div>
+    <div class="oc"><div class="on">3</div><div><h4>Segmentar el perfil jurídico de los privados de libertad</h4><p>Cuantificar la distribución porcentual entre población condenada y procesada, con el fin de evaluar la eficiencia de las políticas de reinserción y el flujo judicial.</p></div></div>
+    <div class="oc"><div class="on">4</div><div><h4>Detectar y analizar fluctuaciones atípicas</h4><p>Identificar periodos con variaciones significativas en el volumen de PPL (como la caída de julio) y documentar sus posibles causas operativas.</p></div></div>
+    <div class="oc"><div class="on">5</div><div><h4>Desarrollar proyecciones de demanda a corto plazo</h4><p>Aplicar un modelo de regresión lineal simple que permita anticipar la población estimada para enero, febrero y marzo de 2026.</p></div></div>
+    <div class="oc"><div class="on">6</div><div><h4>Formular recomendaciones estratégicas (Prescriptivas)</h4><p>Traducir los hallazgos descriptivos y predictivos en acciones concretas para optimizar la infraestructura y la gestión del hacinamiento a nivel nacional.</p></div></div>
+  </div>
+</div>
+
+<!-- DESCRIPTIVO -->
+<div class="sec" id="descriptivo">
+  <div class="sec-hdr"><div class="sec-ico s-az">📊</div><div class="sec-title">Análisis Descriptivo</div></div>
+
+  <div class="sub">Tabla 1. Resumen Mensual de Población Penitenciaria – Panamá 2025</div>
+  <div class="tw"><table>
+    <thead><tr><th>Mes</th><th>Condenados</th><th>Procesados</th><th>Total PPL</th><th>% Cond.</th><th>% Proc.</th><th>Variación</th><th>Estado</th></tr></thead>
+    <tbody id="tbl-mensual"></tbody>
+  </table></div>
+  <div class="cn">Fuente: Hoja "Tablas Para Análisis Descriptiv" — Base de datos DGSP Panamá 2025. Los condenados representan entre 63.6% y 64.9% del total mensual.</div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 2. Estadísticos Descriptivos – PPL Total Mensual 2025</div>
+  <div class="s2">
+    <div class="sbox">
+      <div class="sr"><span class="sl">Media (promedio mensual)</span><span class="sv">24,700.6</span></div>
+      <div class="sr"><span class="sl">Error típico</span><span class="sv">760.5</span></div>
+      <div class="sr"><span class="sl">Mediana</span><span class="sv">24,735.5</span></div>
+      <div class="sr"><span class="sl">Moda</span><span class="sv">N/D (sin repetición)</span></div>
+      <div class="sr"><span class="sl">Desviación estándar</span><span class="sv">2,634.6</span></div>
+      <div class="sr"><span class="sl">Varianza de la muestra</span><span class="sv">6,941,093.5</span></div>
+    </div>
+    <div class="sbox">
+      <div class="sr"><span class="sl">Curtosis</span><span class="sv">−1.803 (platicúrtica)</span></div>
+      <div class="sr"><span class="sl">Coef. de asimetría</span><span class="sv">−0.269 (leve izquierda)</span></div>
+      <div class="sr"><span class="sl">Rango</span><span class="sv">6,210</span></div>
+      <div class="sr"><span class="sl">Mínimo</span><span class="sv">21,363 (Julio)</span></div>
+      <div class="sr"><span class="sl">Máximo</span><span class="sv">27,573 (Junio)</span></div>
+      <div class="sr"><span class="sl">Total acumulado anual</span><span class="sv">296,407</span></div>
+    </div>
+  </div>
+
+  <div class="txt"><strong>Media:</strong> La media de la población mensual fue de 24,701 personas, lo que representa el volumen operativo estándar del sistema penitenciario panameño durante 2025.</div>
+  <div class="txt"><strong>Mediana:</strong> La mediana se situó en 24,736 personas, indicando que el 50% de los meses la población estuvo por debajo de este valor. La cercanía entre media y mediana sugiere distribución relativamente simétrica.</div>
+  <div class="txt rj"><strong>Curtosis −1.803 (platicúrtica):</strong> Los datos están más dispersos que en una distribución normal, con menor concentración en el centro y mayor presencia de valores extremos — producto del notable descenso registrado en el segundo semestre.</div>
+  <div class="txt do"><strong>Rango de 6,210:</strong> El valor máximo fue 27,573 PPL (junio) y el mínimo 21,363 PPL (julio). Esta diferencia en un solo mes refleja la magnitud de la variación bimestral más significativa del año.</div>
+  <div class="txt ve"><strong>Tendencia descendente:</strong> La línea de tendencia muestra un decremento promedio de ~497 PPL mensuales durante 2025, con una notable baja en julio que rompe la inercia estadística del año.</div>
+
+  <div class="sub" style="margin-top:20px;">Tabla Provincial. Hacinamiento por Provincia – Promedios 2025</div>
+  <div class="tw"><table>
+    <thead><tr><th>Provincia</th><th>Pob. Promedio</th><th>Capacidad</th><th>Sobrepoblación</th><th>Densidad</th><th>Nivel</th></tr></thead>
+    <tbody id="tbl-prov"></tbody>
+  </table></div>
+  <div class="cn">Fuente: Hoja "Consolidado Año 2025" — DGSP Panamá 2025. Solo Herrera y Darién operan por debajo de su capacidad instalada.</div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 3. Distribución por Sexo – Meses con Dato Explícito</div>
+  <div class="tw"><table>
+    <thead><tr><th>Mes</th><th>Hombres</th><th>Mujeres</th><th>Total General</th><th>% Hombres</th><th>% Mujeres</th></tr></thead>
+    <tbody id="tbl-sexo"></tbody>
+  </table></div>
+  <div class="cn">Fuente: Hoja "Hombres y Mujeres" — DGSP Panamá 2025. Marzo, Octubre y Noviembre no tienen dato de sexo en el archivo fuente original.</div>
+</div>
+
+<!-- GRÁFICOS -->
+<div class="sec" id="graficos">
+  <div class="sec-hdr"><div class="sec-ico s-az">📈</div><div class="sec-title">Gráficos de Análisis</div></div>
+
+  <div class="sub">Gráfico 1. Evolución Mensual de la Población Penitenciaria – Panamá 2025</div>
+  <div class="cc h400"><canvas id="g1"></canvas></div>
+  <div class="cn">La línea de tendencia muestra un decremento promedio de ~497 PPL mensuales durante 2025, con una notable baja en julio (−6,210 vs. junio).<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 2. Distribución Mensual: Condenados vs. Procesados – Panamá 2025</div>
+  <div class="cc h380"><canvas id="g2"></canvas></div>
+  <div class="cn">Los condenados representan consistentemente entre 63.6% y 64.9% de la población total mensual.<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 3. Población Penitenciaria vs. Capacidad por Provincia</div>
+  <div class="cc h380"><canvas id="g3"></canvas></div>
+  <div class="cn">La provincia de Panamá concentra la mayor población penitenciaria (31% del total nacional), muy por encima de su capacidad instalada.<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 4. Índice de Hacinamiento por Provincia – Panamá 2025</div>
+  <div class="cc h380"><canvas id="g4"></canvas></div>
+  <div class="cn">Solo Herrera y Darién operan por debajo de su capacidad instalada. Las demás provincias presentan hacinamiento severo a extremo.<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 5. Perfil de la Población Penitenciaria – Panamá 2025</div>
+  <div class="cgrid">
+    <div>
+      <p style="text-align:center;font-size:.87em;color:#666;margin-bottom:8px;">Distribución por Sexo (Promedio 2025)</p>
+      <div class="cc h280"><canvas id="g5a"></canvas></div>
+    </div>
+    <div>
+      <p style="text-align:center;font-size:.87em;color:#666;margin-bottom:8px;">Distribución Jurídica (Promedio 2025)</p>
+      <div class="cc h280"><canvas id="g5b"></canvas></div>
+    </div>
+  </div>
+  <div class="cn">El 95.5% de la población es masculina. Los condenados promedian el 64.5% del total anual.<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+</div>
+
+<!-- PREDICTIVO -->
+<div class="sec" id="predictivo">
+  <div class="sec-hdr"><div class="sec-ico s-do">🔮</div><div class="sec-title">Análisis Predictivo – Regresión Lineal Simple</div></div>
+  <div class="txt do">Se aplicó un modelo de regresión lineal simple sobre los 12 datos mensuales de 2025. La variable independiente (X) es el número de mes (1–12) y la variable dependiente (Y) es la población total PPL. El modelo identificó una <strong>tendencia descendente estadísticamente significativa</strong>.</div>
+
+  <div class="reg-formula">Ŷ = 27,730.15 − 466.09 · X &nbsp;&nbsp;|&nbsp;&nbsp; R² = 0.4069 &nbsp;&nbsp;|&nbsp;&nbsp; p = 0.026</div>
+
+  <div class="s2" style="margin:16px 0;">
+    <div class="sbox">
+      <div class="sub" style="margin-top:0;">Estadísticos de la Regresión</div>
+      <div class="sr"><span class="sl">Intercepto (β₀)</span><span class="sv">27,730.15</span></div>
+      <div class="sr"><span class="sl">Pendiente (β₁)</span><span class="sv">−466.09 PPL/mes</span></div>
+      <div class="sr"><span class="sl">R² (determinación)</span><span class="sv">0.4069 (40.7%)</span></div>
+      <div class="sr"><span class="sl">R² ajustado</span><span class="sv">0.3476</span></div>
+      <div class="sr"><span class="sl">r (correlación)</span><span class="sv">0.638 (moderada)</span></div>
+      <div class="sr"><span class="sl">Error típico</span><span class="sv">2,128.08</span></div>
+      <div class="sr"><span class="sl">F calculada</span><span class="sv">6.860</span></div>
+      <div class="sr"><span class="sl">Valor p</span><span class="sv">0.0256 (significativo)</span></div>
+      <div class="sr"><span class="sl">Observaciones</span><span class="sv">12 meses</span></div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0;">Proyecciones 2026</div>
+      <div class="proy-g">
+        <div class="proy"><div class="proy-val">21,671</div><div class="proy-lbl">Enero 2026<br><small>Período 13</small></div></div>
+        <div class="proy"><div class="proy-val">21,205</div><div class="proy-lbl">Febrero 2026<br><small>Período 14</small></div></div>
+        <div class="proy"><div class="proy-val">20,739</div><div class="proy-lbl">Marzo 2026<br><small>Período 15</small></div></div>
+      </div>
+      <div class="txt do" style="font-size:.84em;margin-top:8px;"><strong>Interpretación del R²:</strong> El factor 0.4069 indica que el 40.7% de la variación en la población se explica por el paso del tiempo. El 59.3% restante responde a factores externos como operativos policiales, decisiones judiciales y política penitenciaria.</div>
+    </div>
+  </div>
+
+  <div class="sub">Gráfico 6. Análisis Predictivo – Proyección 2025–2026</div>
+  <div class="cc h400"><canvas id="g6"></canvas></div>
+  <div class="cn">Modelo de regresión lineal (R²=0.41) proyecta una población de ~20,739 PPL para marzo 2026 si persiste la tendencia actual.<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 7. Variación Mensual – Panamá 2025</div>
+  <div class="cc h380"><canvas id="g7"></canvas></div>
+  <div class="cn">La variación acumulada al cierre del año fue de −5,467 PPL. El mes de mayor reducción fue julio (−6,210). La mayor alza fue octubre (+3,181 vs. septiembre).<br><span style="font-size:.88em;color:#95A5A6;"><strong>Fuente:</strong> Dirección General del Sistema Penitenciario (DGSP), Panamá 2025 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+</div>
+
+<!-- HALLAZGOS -->
+<div class="sec" id="hallazgos">
+  <div class="sec-hdr"><div class="sec-ico s-do">🔍</div><div class="sec-title">Hallazgos Técnicos y Calidad de la Data</div></div>
+  <div class="txt do">A continuación se detallan las inconsistencias identificadas en la base de datos de la DGSP de Panamá para el año 2025 y las acciones correctivas aplicadas para garantizar la integridad del reporte gerencial.</div>
+
+  <div class="sub">1. Inconsistencia Estructural y de Formatos</div>
+  <div class="hc"><strong>Falta de Estandarización Mensual:</strong> Los 12 archivos mensuales presentan estructuras radicalmente distintas. Mientras meses como enero utilizaban hojas etiquetadas como "Mes", el período de julio a diciembre migró a una "Plantilla de Condición Jurídica" con variables desglosadas por sexo, obligando a construir herramientas de extracción específicas para cada mes.</div>
+  <div class="hc"><strong>Formatos de Archivo Mixtos:</strong> La información no se publicó en un solo formato; los meses de febrero, marzo y abril se suministraron en archivos .csv con separadores específicos (";"), mientras que el resto del año se entregó en libros de Excel (.xlsx).</div>
+  <div class="hc"><strong>Cambio en la Jerarquía de Datos:</strong> A partir del segundo semestre (julio), la organización cambió de un esquema Provincia–Centro a uno basado directamente en Sexo, alterando la continuidad de las columnas de reporte.</div>
+
+  <div class="sub">2. Discrepancias en Totales y Errores de Procesamiento</div>
+  <div class="hc"><strong>Variaciones entre Fuentes:</strong> Se detectó una diferencia de hasta 5,777 personas entre la base corregida y los archivos fuente originales. En enero la fuente reportaba 24,327 PPL mientras que la base consolidada arroja 27,140, debido a la inclusión de centros que la fuente original omitía.</div>
+  <div class="hc"><strong>Errores de Desplazamiento en Celdas:</strong> En octubre y noviembre, los archivos fuente presentaban columnas vacías o desplazadas. Esto provocó que inicialmente se detectaran solo 1 o 2 personas en lugar de las 24,615 reales, requiriendo corrección manual de las referencias de celda.</div>
+  <div class="hc"><strong>Contradicción en Tendencias:</strong> Los errores en la fuente original mostraban una tendencia creciente (+36.75 personas/mes), mientras que la base depurada revela la realidad: una tendencia descendente significativa con pendiente de −466.09 personas/mes.</div>
+
+  <div class="sub">3. Integridad de Nombres y Codificación</div>
+  <div class="hc"><strong>Corrupción de Caracteres (Encoding):</strong> Los archivos CSV presentaron errores de codificación Latin-1, resultando en nombres como "Panam¡" o "Cocl\x82". Se aplicó normalización para recuperar tildes y eñes.</div>
+  <div class="hc"><strong>Ambigüedad en Nombres de Centros:</strong> Un mismo centro era nombrado de hasta tres formas distintas (ej. "Llano Marín H" vs "Centro Masculino Llano Marín"). Fue necesaria la creación de un mapa de normalización para el agrupamiento histórico.</div>
+  <div class="hc"><strong>Ausencia de Datos Geográficos:</strong> El reporte de marzo omitió la columna de Provincia, obligando al equipo a asignar manualmente la ubicación de más de 20 centros basados en el conocimiento previo de la red penitenciaria.</div>
+
+  <div class="sub">4. Fragmentación de Datos por Sexo</div>
+  <div class="hc"><strong>Vacíos de Información Crítica:</strong> En marzo, octubre y noviembre, la DGSP no reportó el desglose por sexo en ninguna hoja, generando lagunas informativas en el análisis de género del sistema.</div>
+  <div class="hc"><strong>Inconsistencia entre Pestañas:</strong> En meses como agosto y septiembre, la pestaña de "Sexo" estaba incompleta, pero la información pudo rescatarse cruzándola con la pestaña de "Condición Jurídica".</div>
+
+  <div class="sub">5. Identificación de Anomalías Estadísticas (Outliers)</div>
+  <div class="hc"><strong>Caída Atípica en Julio:</strong> Se registró una reducción histórica de 6,210 personas respecto a junio (−22.5%). Este hallazgo sugiere un cambio administrativo profundo o un operativo de descongestión masiva que rompe la inercia estadística del año.</div>
+  <div class="hc"><strong>Subregistro en Chitré:</strong> Durante enero y febrero, la Cárcel de Chitré reportó 0 PPL, posible anomalía operativa. El dato se normalizó a partir de abril con 102 personas.</div>
+  <div class="hc"><strong>Detección de Doble Conteo:</strong> Se identificó un riesgo de sobreestimación en Colón, donde las filas de "Totales" se mezclaban con las de centros individuales. Se aplicó un filtro de exclusión para asegurar la exactitud de la suma general.</div>
+</div>
+
+<!-- PRESCRIPTIVO -->
+<div class="sec" id="prescriptivo">
+  <div class="sec-hdr"><div class="sec-ico s-mo">💡</div><div class="sec-title">Análisis Prescriptivo</div></div>
+  <div class="txt mo">Con base en los hallazgos descriptivos y predictivos, se identifican las siguientes acciones prioritarias para optimizar la gestión del sistema penitenciario de Panamá. El enfoque prescriptivo busca <strong>transformar los datos en decisiones concretas</strong>.</div>
+
+  <div class="pc p1">
+    <h4><span class="pn">1</span> Gestión de la Capacidad Instalada <span class="ref-mo">Ver: Gráfico 3 · Gráfico 4 · Tabla Provincial</span></h4>
+    <p>Dado que 7 de 9 provincias superan su capacidad instalada, se prescribe un <strong>plan quinquenal de ampliación de infraestructura</strong> focalizado en las provincias con índice Extremo (Los Santos 569%, Veraguas 410%). La inversión debe priorizarse en estas regiones antes de expandir centros en Panamá capital, que ya concentra el mayor número absoluto de PPL.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Diseñar el plan de infraestructura con base en los índices de hacinamiento por provincia y establecer metas de reducción al 80% de capacidad en un plazo de 5 años.</div>
+  </div>
+
+  <div class="pc p2">
+    <h4><span class="pn">2</span> Reducción de la Población Procesada <span class="ref-mo">Ver: Gráfico 2 · Tabla 1</span></h4>
+    <p>El 35.5% de los PPL son personas procesadas (sin condena firme). Se prescribe <strong>implementar medidas alternativas a la detención preventiva</strong> como el arresto domiciliario con monitoreo electrónico, especialmente para delitos no violentos. Reducir la población procesada en un 20% liberaría aproximadamente 1,750 plazas a nivel nacional.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Coordinar con el Ministerio Público y el Órgano Judicial un protocolo de revisión de casos procesados con más de 12 meses sin sentencia.</div>
+  </div>
+
+  <div class="pc p3">
+    <h4><span class="pn">3</span> Protocolo de Alerta por Capacidad <span class="ref-mo">Ver: Gráfico 4 · Tabla Provincial</span></h4>
+    <p>El sistema de gestión debe activar <strong>alertas automáticas</strong> cuando el índice de ocupación supere el 150%, 200% y 300%, escalando la respuesta institucional en cada nivel. Los centros de Los Santos y Veraguas requieren intervención inmediata por su nivel Extremo de hacinamiento.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Implementar un tablero de control en tiempo real con semáforos de alerta por provincia, actualizado mensualmente con los datos de la DGSP.</div>
+  </div>
+
+  <div class="pc p4">
+    <h4><span class="pn">4</span> Programas de Reinserción para Reducir Reincidencia <span class="ref-mo">Ver: Gráfico 6 · Gráfico 7</span></h4>
+    <p>La tendencia descendente proyectada (−466 PPL/mes) sugiere que las políticas actuales muestran algún efecto. Se prescribe <strong>fortalecer programas de educación y trabajo</strong> dentro de los centros para consolidar esta tendencia. Un estudio de seguimiento post-liberación permitiría medir la tasa de reincidencia y ajustar los programas.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Diseñar un sistema de seguimiento post-liberación con indicadores de reinserción laboral, educativa y social medidos a 6 y 12 meses.</div>
+  </div>
+</div>
+
+<!-- CONCLUSIONES -->
+<div class="sec" id="conclusiones">
+  <div class="sec-hdr"><div class="sec-ico s-ve">✅</div><div class="sec-title">Conclusiones – Una por Integrante del Grupo</div></div>
+  <div class="cg">
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 1</span> Tendencia Descendente con Alta Variabilidad <span class="ref-az">Ver: Gráfico 1 · Gráfico 7 · Tabla 1</span></h4>
+      <p>El análisis estadístico revela una tendencia general descendente de −466 PPL/mes (R²=0.41), aunque con alta dispersión (σ=2,634). La caída más pronunciada ocurrió en julio (−6,210 vs junio), sugiriendo que factores operativos externos influyen significativamente en la población, más allá del simple transcurso del tiempo.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 2</span> Crisis Crónica de Hacinamiento Diferenciado <span class="ref-az">Ver: Gráfico 3 · Gráfico 4 · Tabla Provincial</span></h4>
+      <p>El sistema enfrenta una crisis estructural que afecta diferencialmente a las provincias. Los Santos (569%) y Veraguas (410%) registran nivel Extremo, mientras Herrera (62%) y Darién (49%) operan dentro de su capacidad. Esta asimetría revela una distribución desigual de infraestructura penitenciaria en el país.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 3</span> Predominancia Masculina y Perfil Jurídico Estable <span class="ref-az">Ver: Gráfico 5 · Tabla 1 · Tabla 3</span></h4>
+      <p>El 95.5% de la población son hombres y el 64.5% son condenados con sentencia firme. La estabilidad de estos porcentajes (63.6%–64.9%) durante el año indica que la composición jurídica del sistema no sufrió cambios sustanciales en 2025, lo que sugiere ausencia de reformas judiciales significativas en el período.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 4</span> Capacidad Predictiva Moderada del Modelo <span class="ref-az">Ver: Gráfico 6 · Tabla Regresión</span></h4>
+      <p>El modelo de regresión proyecta 20,739 PPL para marzo 2026 (R²=0.41). El 59.3% de la varianza no explicada señala que factores estructurales —políticas judiciales, operativos policiales, amnistías— deben incorporarse en modelos más robustos para mejorar la precisión de las proyecciones.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RECOMENDACIONES -->
+<div class="sec" id="recomendaciones">
+  <div class="sec-hdr"><div class="sec-ico s-ve">🚀</div><div class="sec-title">Recomendaciones – Una por Integrante del Grupo</div></div>
+  <div class="cg">
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 1</span> Plan de Infraestructura Penitenciaria Focalizado <span class="ref-ve">Ver: Gráfico 3 · Gráfico 4 · Tabla Provincial</span></h4>
+      <p>Desarrollar un Plan Quinquenal de Infraestructura que priorice Los Santos, Veraguas y Bocas del Toro. La inversión debe calcularse para alcanzar el 80% de capacidad operativa en todas las provincias, usando los índices actuales como línea base de medición.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 2</span> Justicia Alternativa para Reducir Detención Preventiva <span class="ref-ve">Ver: Gráfico 2 · Tabla 1</span></h4>
+      <p>Implementar un programa nacional de medidas cautelares alternativas para delitos no violentos (monitoreo electrónico, arresto domiciliario). Reducir el 35.5% de procesados al 25% liberaría ~2,600 plazas en el sistema, aliviando significativamente el hacinamiento.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 3</span> Sistema de Monitoreo en Tiempo Real <span class="ref-ve">Ver: Gráfico 1 · Gráfico 4 · Gráfico 7</span></h4>
+      <p>Implementar tableros gerenciales con datos actualizados mensualmente y alertas automáticas al superar umbrales de 150%, 200% y 300% de capacidad por centro penitenciario, permitiendo anticipar anomalías como la caída de julio.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 4</span> Modelo Predictivo Multivariable <span class="ref-ve">Ver: Gráfico 6 · Tabla Regresión</span></h4>
+      <p>Desarrollar un modelo con variables adicionales: tasa de criminalidad, casos judiciales pendientes, capacidad del sistema judicial y políticas de beneficios penitenciarios. Esto elevaría el R² actual (0.41) y mejoraría la precisión para planificación presupuestaria.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- PLAN DE ACCIÓN GERENCIAL -->
+<style>
+.plan-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:20px;}
+.plan-kpi-g{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #E8ECF0;border-radius:9px;overflow:hidden;margin:12px 0;}
+.plan-kpi{padding:12px 14px;border-right:1px solid #E8ECF0;background:#F8FAFD;}
+.plan-kpi:last-child{border-right:none;}
+.plan-kpi-l{font-size:.69em;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.plan-kpi-v{font-size:1em;font-weight:700;color:#1A3A5C;line-height:1.2;}
+.plan-kpi-s{font-size:.75em;color:#AAB7B8;margin-top:2px;}
+.plan-card{border-radius:12px;overflow:hidden;border:1px solid #E8ECF0;margin-bottom:18px;}
+.plan-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;color:#fff;}
+.plan-hdr .pnum{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85em;flex-shrink:0;}
+.plan-hdr h4{font-size:.95em;font-weight:700;flex:1;}
+.plan-hdr .pinv{font-size:.82em;font-weight:700;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:12px;white-space:nowrap;}
+.plan-body{padding:16px 18px;background:#fff;}
+.plan-desc{font-size:.85em;color:#555;line-height:1.65;margin-bottom:14px;padding:10px 13px;border-radius:0 8px 8px 0;border-left:3px solid #E8ECF0;}
+.fases-t{font-size:.75em;font-weight:700;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.fase-row{display:grid;grid-template-columns:120px 1fr 90px;gap:10px;align-items:center;margin-bottom:6px;font-size:.83em;}
+.fase-per{color:#7F8C8D;font-size:.78em;}
+.barra-out{background:#F0F2F5;border-radius:4px;overflow:hidden;height:22px;}
+.barra-in{height:100%;display:flex;align-items:center;padding:0 8px;border-radius:4px;}
+.barra-in span{font-size:.75em;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;}
+.fase-inv{font-size:.78em;color:#7F8C8D;text-align:right;}
+.ind-g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;}
+.ind-item{font-size:.8em;color:#555;display:flex;gap:6px;align-items:flex-start;line-height:1.45;}
+.ind-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.risk-g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+.risk-item{font-size:.79em;padding:7px 10px;border-radius:7px;line-height:1.45;}
+.risk-item strong{display:block;font-size:.88em;margin-bottom:2px;}
+.gantt-wrap{overflow-x:auto;margin-top:14px;}
+.gantt-t{width:100%;border-collapse:collapse;font-size:.8em;min-width:700px;}
+.gantt-t th{background:#1A3A5C;color:#fff;padding:7px 10px;text-align:center;font-size:.78em;white-space:nowrap;}
+.gantt-t th:first-child{text-align:left;min-width:200px;}
+.gantt-t td{padding:5px 4px;border-bottom:1px solid #F0F2F5;}
+.gantt-t tr:nth-child(even) td{background:#F8FAFD;}
+.gb{height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+.gb span{font-size:.7em;font-weight:600;color:#fff;white-space:nowrap;}
+.gtot{background:#EBF2FA;font-weight:700;}
+.gtot td{color:#1A3A5C;font-size:.82em;padding:9px 10px;}
+</style>
+
+<div class="sec" id="plan">
+  <div class="sec-hdr"><div class="sec-ico s-do">📋</div><div class="sec-title">Plan de Acción Gerencial – Detalle por Recomendación</div></div>
+  <div class="txt do">Basado en las 4 recomendaciones del análisis prescriptivo, se presenta el plan de acción detallado con inversión estimada, plazo, fases de implementación, indicadores de éxito y riesgos para cada iniciativa.</div>
+
+  <!-- KPIs GLOBALES -->
+  <div class="plan-kpi-g">
+    <div class="plan-kpi"><div class="plan-kpi-l">Inversión Total Estimada</div><div class="plan-kpi-v">$379M–$462M</div><div class="plan-kpi-s">USD — 4 planes combinados</div></div>
+    <div class="plan-kpi"><div class="plan-kpi-l">Horizonte de Ejecución</div><div class="plan-kpi-v">5 Años</div><div class="plan-kpi-s">2026 – 2030</div></div>
+    <div class="plan-kpi"><div class="plan-kpi-l">Plazas Liberadas (Meta)</div><div class="plan-kpi-v">~2,600</div><div class="plan-kpi-s">Reducción detención preventiva</div></div>
+    <div class="plan-kpi"><div class="plan-kpi-l">Provincias Priorizadas</div><div class="plan-kpi-v">3 críticas</div><div class="plan-kpi-s">Los Santos · Veraguas · Bocas</div></div>
+  </div>
+
+  <!-- R1 -->
+  <div class="plan-card">
+    <div class="plan-hdr" style="background:#C0392B;">
+      <div class="pnum">R1</div>
+      <h4>Plan de Infraestructura Penitenciaria Focalizado</h4>
+      <span class="pinv">$350–420M USD</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-kpi-g" style="border-color:#FDECEA;">
+        <div class="plan-kpi" style="background:#FDECEA;"><div class="plan-kpi-l">Plazo</div><div class="plan-kpi-v" style="color:#C0392B;">5 años</div><div class="plan-kpi-s">2026–2030</div></div>
+        <div class="plan-kpi" style="background:#FDECEA;"><div class="plan-kpi-l">Meta</div><div class="plan-kpi-v" style="color:#C0392B;">≤80%</div><div class="plan-kpi-s">ocupación en todas las prov.</div></div>
+        <div class="plan-kpi" style="background:#FDECEA;"><div class="plan-kpi-l">Nuevas Plazas</div><div class="plan-kpi-v" style="color:#C0392B;">≥3,500</div><div class="plan-kpi-s">plazas al 2030</div></div>
+        <div class="plan-kpi" style="background:#FDECEA;"><div class="plan-kpi-l">Responsable</div><div class="plan-kpi-v" style="color:#C0392B;font-size:.85em;">Min. Gobierno</div><div class="plan-kpi-s">+ DGSP + MOP</div></div>
+      </div>
+      <div class="plan-desc" style="border-left-color:#C0392B;">Dado que 7 de 9 provincias superan su capacidad instalada, se prescribe un plan quinquenal focalizado en <strong>Los Santos (569%)</strong>, <strong>Veraguas (410%)</strong> y <strong>Bocas del Toro (325%)</strong>. La inversión se prioriza en estas regiones antes de expandir centros en Panamá capital.</div>
+      <div class="fases-t">Cronograma de fases</div>
+      <div class="fase-row"><span class="fase-per">2026 — Fase 1</span><div class="barra-out"><div class="barra-in" style="width:20%;background:#F09595;"><span>Diagnóstico y diseño</span></div></div><span class="fase-inv">$15–20M</span></div>
+      <div class="fase-row"><span class="fase-per">2027 — Fase 2</span><div class="barra-out"><div class="barra-in" style="width:40%;background:#E24B4A;"><span>Construcción Los Santos (569%)</span></div></div><span class="fase-inv">$80–100M</span></div>
+      <div class="fase-row"><span class="fase-per">2028 — Fase 3</span><div class="barra-out"><div class="barra-in" style="width:60%;background:#C0392B;"><span>Construcción Veraguas (410%)</span></div></div><span class="fase-inv">$90–110M</span></div>
+      <div class="fase-row"><span class="fase-per">2029 — Fase 4</span><div class="barra-out"><div class="barra-in" style="width:80%;background:#A32D2D;"><span>Bocas del Toro (325%)</span></div></div><span class="fase-inv">$80–100M</span></div>
+      <div class="fase-row"><span class="fase-per">2030 — Fase 5</span><div class="barra-out"><div class="barra-in" style="width:100%;background:#791F1F;"><span>Entrega, evaluación y ajuste nacional</span></div></div><span class="fase-inv">$85–90M</span></div>
+      <div class="fases-t" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g">
+        <div class="ind-item"><span class="ind-dot" style="background:#C0392B;"></span>Reducir Los Santos de 569% a ≤120% al cierre de 2027</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#C0392B;"></span>Reducir Veraguas de 410% a ≤120% al cierre de 2028</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#C0392B;"></span>Generar ≥3,500 nuevas plazas penitenciarias al 2030</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#C0392B;"></span>Desviación presupuestaria ≤5% anual (MEF + Contraloría)</div>
+      </div>
+      <div class="fases-t" style="margin-top:14px;">Riesgos principales</div>
+      <div class="risk-g">
+        <div class="risk-item" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Retrasos presupuestarios</strong>Gestionar partida plurianual con MEF desde T1 2026.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Sobrecostos de construcción</strong>Precio fijo en contratos + fondo de contingencia del 15%.</div>
+        <div class="risk-item" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Corrupción en licitaciones</strong>Supervisión independiente + Contraloría + sociedad civil.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Demoras ambientales</strong>Gestiones ambientales en paralelo al diseño, no secuencial.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R2 -->
+  <div class="plan-card">
+    <div class="plan-hdr" style="background:#E67E22;">
+      <div class="pnum">R2</div>
+      <h4>Justicia Alternativa para Reducir Detención Preventiva</h4>
+      <span class="pinv">$18–25M USD</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-kpi-g" style="border-color:#FEF9EE;">
+        <div class="plan-kpi" style="background:#FEF9EE;"><div class="plan-kpi-l">Plazo</div><div class="plan-kpi-v" style="color:#E67E22;">2 años</div><div class="plan-kpi-s">2026–2027</div></div>
+        <div class="plan-kpi" style="background:#FEF9EE;"><div class="plan-kpi-l">Meta procesados</div><div class="plan-kpi-v" style="color:#E67E22;">35.5% → 25%</div><div class="plan-kpi-s">reducción en 24 meses</div></div>
+        <div class="plan-kpi" style="background:#FEF9EE;"><div class="plan-kpi-l">Plazas Liberadas</div><div class="plan-kpi-v" style="color:#E67E22;">~2,600</div><div class="plan-kpi-s">sin construcción</div></div>
+        <div class="plan-kpi" style="background:#FEF9EE;"><div class="plan-kpi-l">Responsable</div><div class="plan-kpi-v" style="color:#E67E22;font-size:.85em;">MINSEG + OJ</div><div class="plan-kpi-s">+ Min. Público</div></div>
+      </div>
+      <div class="plan-desc" style="border-left-color:#E67E22;">El 35.5% de los PPL son personas <strong>procesadas sin condena firme</strong>. Se implementan medidas alternativas a la detención preventiva (arresto domiciliario con monitoreo electrónico) para delitos no violentos. Es la recomendación de mayor impacto inmediato y menor costo.</div>
+      <div class="fases-t">Cronograma de fases</div>
+      <div class="fase-row"><span class="fase-per">T1 2026 — Fase 1</span><div class="barra-out"><div class="barra-in" style="width:25%;background:#FAC775;"><span style="color:#412402;">Marco legal y protocolo</span></div></div><span class="fase-inv">$2–3M</span></div>
+      <div class="fase-row"><span class="fase-per">T2–T3 2026 — Fase 2</span><div class="barra-out"><div class="barra-in" style="width:55%;background:#EF9F27;"><span>Adquisición brazaletes + piloto</span></div></div><span class="fase-inv">$8–10M</span></div>
+      <div class="fase-row"><span class="fase-per">T4 2026 — Fase 3</span><div class="barra-out"><div class="barra-in" style="width:78%;background:#BA7517;"><span>Capacitación + expansión nacional</span></div></div><span class="fase-inv">$4–6M</span></div>
+      <div class="fase-row"><span class="fase-per">2027 — Fase 4</span><div class="barra-out"><div class="barra-in" style="width:100%;background:#854F0B;"><span>Operación plena + evaluación</span></div></div><span class="fase-inv">$4–6M</span></div>
+      <div class="fases-t" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g">
+        <div class="ind-item"><span class="ind-dot" style="background:#E67E22;"></span>Reducir procesados del 35.5% al 25% en 24 meses</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#E67E22;"></span>≥2,000 brazaletes electrónicos activos simultáneamente</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#E67E22;"></span>Tasa de incumplimiento de medidas alternativas ≤8%</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#E67E22;"></span>100% de casos con +12 meses sin sentencia revisados en 6 meses</div>
+      </div>
+      <div class="fases-t" style="margin-top:14px;">Riesgos principales</div>
+      <div class="risk-g">
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Resistencia del Órgano Judicial</strong>Talleres con magistrados + respaldo técnico OEA y UNODC.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Fallas técnicas del brazalete</strong>Garantía de repuesto en 48h + equipo técnico de backup.</div>
+        <div class="risk-item" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Resistencia política o social</strong>Campaña comunicacional sobre criterios de selección de casos.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Reincidencia en medida alternativa</strong>Protocolo de revocación inmediata + revisión semestral.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R3 -->
+  <div class="plan-card">
+    <div class="plan-hdr" style="background:#2980B9;">
+      <div class="pnum">R3</div>
+      <h4>Sistema de Monitoreo Penitenciario en Tiempo Real</h4>
+      <span class="pinv">$8–12M USD</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-kpi-g" style="border-color:#EBF2FA;">
+        <div class="plan-kpi" style="background:#EBF2FA;"><div class="plan-kpi-l">Plazo</div><div class="plan-kpi-v" style="color:#2980B9;">18 meses</div><div class="plan-kpi-s">2026–2027</div></div>
+        <div class="plan-kpi" style="background:#EBF2FA;"><div class="plan-kpi-l">Cobertura</div><div class="plan-kpi-v" style="color:#2980B9;">100%</div><div class="plan-kpi-s">de centros nacionales</div></div>
+        <div class="plan-kpi" style="background:#EBF2FA;"><div class="plan-kpi-l">Alertas</div><div class="plan-kpi-v" style="color:#2980B9;">150–300%</div><div class="plan-kpi-s">umbrales automáticos</div></div>
+        <div class="plan-kpi" style="background:#EBF2FA;"><div class="plan-kpi-l">Responsable</div><div class="plan-kpi-v" style="color:#2980B9;font-size:.85em;">DGSP + MINTIC</div><div class="plan-kpi-s">+ MINSEG</div></div>
+      </div>
+      <div class="plan-desc" style="border-left-color:#2980B9;">Implementar tableros gerenciales con datos actualizados mensualmente y <strong>alertas automáticas en umbrales de 150%, 200% y 300%</strong> de capacidad instalada por centro. Permite anticipar anomalías como la caída de julio (−6,210 PPL) e integra los 20 centros penitenciarios.</div>
+      <div class="fases-t">Cronograma de fases</div>
+      <div class="fase-row"><span class="fase-per">Mes 1–3 — Fase 1</span><div class="barra-out"><div class="barra-in" style="width:18%;background:#85B7EB;"><span style="color:#042C53;">Diseño y licitación</span></div></div><span class="fase-inv">$1–2M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 4–9 — Fase 2</span><div class="barra-out"><div class="barra-in" style="width:55%;background:#378ADD;"><span>Desarrollo plataforma + integración</span></div></div><span class="fase-inv">$4–5M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 10–14 — Fase 3</span><div class="barra-out"><div class="barra-in" style="width:80%;background:#185FA5;"><span>Despliegue 20 centros + capacitación</span></div></div><span class="fase-inv">$2–3M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 15–18 — Fase 4</span><div class="barra-out"><div class="barra-in" style="width:100%;background:#0C447C;"><span>Operación plena + ajuste de alertas</span></div></div><span class="fase-inv">$1–2M</span></div>
+      <div class="fases-t" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g">
+        <div class="ind-item"><span class="ind-dot" style="background:#2980B9;"></span>100% de los 20 centros integrados en 18 meses</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#2980B9;"></span>Tiempo de respuesta ante anomalías ≤72 horas</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#2980B9;"></span>Disponibilidad del sistema ≥99% de uptime mensual</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#2980B9;"></span>≥80% de directores de centro usan el tablero mensualmente</div>
+      </div>
+      <div class="fases-t" style="margin-top:14px;">Riesgos principales</div>
+      <div class="risk-g">
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Sin conectividad en centros remotos</strong>Solución satelital para Darién y Bocas del Toro.</div>
+        <div class="risk-item" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Desactualización de datos en fuente</strong>Responsable designado por centro + validación automática.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Ciberseguridad y acceso no autorizado</strong>Autenticación 2 factores + auditoría semestral.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Resistencia del personal</strong>Capacitación obligatoria + incentivos por adopción.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R4 -->
+  <div class="plan-card">
+    <div class="plan-hdr" style="background:#27AE60;">
+      <div class="pnum">R4</div>
+      <h4>Modelo Predictivo Multivariable de Población Penitenciaria</h4>
+      <span class="pinv">$3–5M USD</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-kpi-g" style="border-color:#EAF7EE;">
+        <div class="plan-kpi" style="background:#EAF7EE;"><div class="plan-kpi-l">Plazo</div><div class="plan-kpi-v" style="color:#27AE60;">12 meses</div><div class="plan-kpi-s">2026</div></div>
+        <div class="plan-kpi" style="background:#EAF7EE;"><div class="plan-kpi-l">Meta R²</div><div class="plan-kpi-v" style="color:#27AE60;">≥0.75</div><div class="plan-kpi-s">desde 0.41 actual</div></div>
+        <div class="plan-kpi" style="background:#EAF7EE;"><div class="plan-kpi-l">Variables</div><div class="plan-kpi-v" style="color:#27AE60;">≥5</div><div class="plan-kpi-s">variables externas</div></div>
+        <div class="plan-kpi" style="background:#EAF7EE;"><div class="plan-kpi-l">Responsable</div><div class="plan-kpi-v" style="color:#27AE60;font-size:.85em;">DGSP + Univers.</div><div class="plan-kpi-s">+ MEF</div></div>
+      </div>
+      <div class="plan-desc" style="border-left-color:#27AE60;">Desarrollar un modelo multivariable que incorpore: tasa de criminalidad, casos judiciales pendientes, capacidad del sistema judicial y políticas de beneficios penitenciarios. Eleva el R² actual (0.41) y mejora las proyecciones para planificación presupuestaria del MEF.</div>
+      <div class="fases-t">Cronograma de fases</div>
+      <div class="fase-row"><span class="fase-per">Mes 1–2 — Fase 1</span><div class="barra-out"><div class="barra-in" style="width:18%;background:#C0DD97;"><span style="color:#173404;">Definición de variables</span></div></div><span class="fase-inv">$0.3–0.5M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 3–6 — Fase 2</span><div class="barra-out"><div class="barra-in" style="width:48%;background:#97C459;"><span style="color:#173404;">Recolección + limpieza de datos</span></div></div><span class="fase-inv">$1–1.5M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 7–10 — Fase 3</span><div class="barra-out"><div class="barra-in" style="width:78%;background:#639922;"><span>Modelado, pruebas y validación</span></div></div><span class="fase-inv">$1–2M</span></div>
+      <div class="fase-row"><span class="fase-per">Mes 11–12 — Fase 4</span><div class="barra-out"><div class="barra-in" style="width:100%;background:#3B6D11;"><span>Implementación y transferencia</span></div></div><span class="fase-inv">$0.7–1M</span></div>
+      <div class="fases-t" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g">
+        <div class="ind-item"><span class="ind-dot" style="background:#27AE60;"></span>Elevar R² del modelo de 0.41 a ≥0.75</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#27AE60;"></span>Incorporar ≥5 variables externas al modelo</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#27AE60;"></span>Error de proyección ≤10% en horizonte de 3 meses</div>
+        <div class="ind-item"><span class="ind-dot" style="background:#27AE60;"></span>Proyecciones automáticas trimestrales para el MEF</div>
+      </div>
+      <div class="fases-t" style="margin-top:14px;">Riesgos principales</div>
+      <div class="risk-g">
+        <div class="risk-item" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Datos históricos incompletos</strong>Auditoría de datos 2015–2025 en Q1 2026 + imputación estadística.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Overfitting del modelo</strong>Validación cruzada k-fold + conjunto de datos de prueba independiente.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Cambios de política que invalidan el modelo</strong>Reentrenamiento automático trimestral del modelo.</div>
+        <div class="risk-item" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Falta de capacidad técnica interna</strong>Convenio con 2 universidades como soporte permanente.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA MAESTRO -->
+  <div class="sub" style="margin-top:20px;">Cronograma Maestro 2026–2030</div>
+  <div class="gantt-wrap">
+    <table class="gantt-t">
+      <thead>
+        <tr>
+          <th>Plan / Fase</th>
+          <th colspan="4">2026</th><th colspan="4">2027</th>
+          <th colspan="4">2028</th><th>2029</th><th>2030</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+          <th>Anual</th><th>Anual</th>
+        </tr>
+      </thead>
+      <tbody id="gantt-body"></tbody>
+    </table>
+  </div>
+  <div class="cn">Fuente: Análisis prescriptivo basado en datos DGSP Panamá 2025 | Autor: Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</div>
+</div>
+
+<script>
+(function(){
+  const G=[
+    {l:"R1 — Infraestructura Penitenciaria",c:"C0392B",cols:[1,2,3,4,5,6,7,8,9,10,11,12,13,14],isH:true,lbs:{1:"Diseño",5:"Los Santos",9:"Veraguas",13:"Bocas",14:"Cierre"}},
+    {l:"  Fase 1 — Diagnóstico y diseño (2026)",c:"E57373",cols:[1,2,3,4],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Construcción Los Santos (2027)",c:"E57373",cols:[5,6,7,8],isH:false,lbs:{5:""}},
+    {l:"  Fase 3 — Construcción Veraguas (2028)",c:"E57373",cols:[9,10,11,12],isH:false,lbs:{9:""}},
+    {l:"  Fase 4 — Bocas del Toro (2029)",c:"E57373",cols:[13],isH:false,lbs:{13:""}},
+    {l:"  Fase 5 — Entrega y evaluación (2030)",c:"E57373",cols:[14],isH:false,lbs:{14:""}},
+    {l:"R2 — Justicia Alternativa",c:"E67E22",cols:[1,2,3,4,5,6,7,8],isH:true,lbs:{1:"Marco",3:"Piloto",6:"Exp.",8:"Oper."}},
+    {l:"  Fase 1 — Marco legal (T1 2026)",c:"F5A623",cols:[1,2],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Piloto brazaletes (T2–T3 2026)",c:"F5A623",cols:[3,4,5],isH:false,lbs:{3:""}},
+    {l:"  Fase 3 — Expansión nacional (T4 2026)",c:"F5A623",cols:[6,7],isH:false,lbs:{6:""}},
+    {l:"  Fase 4 — Operación plena (2027)",c:"F5A623",cols:[8],isH:false,lbs:{8:""}},
+    {l:"R3 — Sistema de Monitoreo",c:"2980B9",cols:[1,2,3,4,5,6,7,8],isH:true,lbs:{1:"Diseño",3:"Desarrollo",6:"Deploy",8:"Oper."}},
+    {l:"  Fase 1 — Diseño y licitación (Mes 1–3)",c:"5BA3D9",cols:[1,2],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Desarrollo plataforma (Mes 4–9)",c:"5BA3D9",cols:[3,4,5],isH:false,lbs:{3:""}},
+    {l:"  Fase 3 — Despliegue centros (Mes 10–14)",c:"5BA3D9",cols:[6,7],isH:false,lbs:{6:""}},
+    {l:"  Fase 4 — Operación plena (Mes 15–18)",c:"5BA3D9",cols:[8],isH:false,lbs:{8:""}},
+    {l:"R4 — Modelo Predictivo",c:"27AE60",cols:[1,2,3,4,5,6,7],isH:true,lbs:{1:"Def.",2:"Datos",4:"Model.",6:"Impl."}},
+    {l:"  Fase 1 — Definición de variables",c:"52C97B",cols:[1],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Recolección de datos",c:"52C97B",cols:[2,3],isH:false,lbs:{2:""}},
+    {l:"  Fase 3 — Modelado y validación",c:"52C97B",cols:[4,5],isH:false,lbs:{4:""}},
+    {l:"  Fase 4 — Implementación",c:"52C97B",cols:[6,7],isH:false,lbs:{6:""}},
+  ];
+  const tb=document.getElementById('gantt-body');
+  G.forEach(row=>{
+    const tr=document.createElement('tr');
+    if(!row.isH) tr.style.background='#FAFBFC';
+    const td0=document.createElement('td');
+    td0.textContent=row.l;
+    td0.style.cssText=`font-size:.82em;font-weight:${row.isH?'700':'400'};color:${row.isH?'#'+row.c:'#444'};padding:6px 10px;white-space:nowrap;`;
+    td0.style.borderBottom='1px solid #F0F2F5';
+    tr.appendChild(td0);
+    for(let j=1;j<=14;j++){
+      const td=document.createElement('td');
+      td.style.padding='4px 3px';
+      td.style.borderBottom='1px solid #F0F2F5';
+      if(row.cols.includes(j)){
+        const bar=document.createElement('div');
+        bar.className='gb';
+        bar.style.background='#'+row.c;
+        if(row.lbs[j]!==undefined&&row.lbs[j]!==''){
+          const sp=document.createElement('span');
+          sp.textContent=row.lbs[j];
+          sp.style.cssText='font-size:.68em;font-weight:600;color:#fff;white-space:nowrap;padding:0 3px;';
+          bar.appendChild(sp);
+        }
+        td.appendChild(bar);
+      } else {
+        td.style.background='#F8FAFD';
+      }
+      tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  });
+
+  // Fila total
+  const trT=document.createElement('tr');
+  trT.className='gtot';
+  const labels=['Plan','$379M–$462M total','','','','','','','','','','','','',''];
+  labels.forEach((l,i)=>{
+    const td=document.createElement('td');
+    td.textContent=l;
+    td.style.cssText='padding:9px 10px;font-size:.82em;font-weight:700;color:#1A3A5C;background:#EBF2FA;border-top:2px solid #1A3A5C;';
+    trT.appendChild(td);
+  });
+  tb.appendChild(trT);
+})();
+</script>
+
+<footer>
+  <strong>Informe Gerencial – Población Penitenciaria República de Panamá 2025</strong><br>
+  Universidad Mariano Gálvez de Guatemala &nbsp;|&nbsp; Grupo 1 &nbsp;|&nbsp;
+  Elder Hernández · Henry López · Joshuan Bran · Delia Cun<br>
+  Fuente: Dirección General del Sistema Penitenciario (DGSP), República de Panamá 2025
+</footer>
+
+<script>
+const M  = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+const MF = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const PPL  = [27140,27098,24484,27366,27408,27573,21363,21397,21434,24615,24856,21673];
+const COND = [17536,17517,15907,17686,17709,17835,13597,13616,13633,15962,16128,13791];
+const PROC = [9604,9581,8577,9680,9699,9738,7766,7731,7801,8653,8728,7882];
+const AZ="#1A3A5C",CE="#2980B9",VE="#27AE60",RJ="#C0392B",DO="#F39C12",MO="#8E44AD",GR="#AAB7B8";
+
+// ── Tabla mensual ──────────────────────────────────────────
+function estadoBadge(v,i){
+  if(i===0) return '<span class="badge b-az">Base</span>';
+  if(v>200) return '<span class="badge b-rj">Alza máx.</span>';
+  if(v>50)  return '<span class="badge b-do">Alza</span>';
+  if(v>=-50)return '<span class="badge b-am">Estable</span>';
+  return '<span class="badge b-ve">Baja</span>';
+}
+const tb=document.getElementById('tbl-mensual');
+PPL.forEach((p,i)=>{
+  const v=i>0?p-PPL[i-1]:0;
+  const pctC=(COND[i]/p*100).toFixed(1), pctP=(PROC[i]/p*100).toFixed(1);
+  const vs=i===0?'—':(v>=0?`<span style="color:${VE};font-weight:700">+${v.toLocaleString()}</span>`:`<span style="color:${RJ};font-weight:700">${v.toLocaleString()}</span>`);
+  tb.innerHTML+=`<tr><td>${MF[i]}</td><td style="color:${CE}">${COND[i].toLocaleString()}</td><td style="color:${GR}">${PROC[i].toLocaleString()}</td><td><strong>${p.toLocaleString()}</strong></td><td>${pctC}%</td><td>${pctP}%</td><td>${vs}</td><td>${estadoBadge(v,i)}</td></tr>`;
+});
+tb.innerHTML+=`<tr style="background:#EBF2FA"><td><strong>TOTAL</strong></td><td style="color:${CE};font-weight:700">190,917</td><td style="color:${GR};font-weight:700">105,440</td><td><strong>296,407</strong></td><td>64.5%</td><td>35.5%</td><td style="color:${RJ};font-weight:700">−5,467</td><td></td></tr>`;
+
+// ── Tabla provincial ────────────────────────────────────────
+const provs=[
+  ["Los Santos",   437,  77, 360, 5.70,"Extremo","7B241C"],
+  ["Veraguas",     615, 150, 465, 4.10,"Extremo","7B241C"],
+  ["Bocas del Toro",949,292, 657, 3.25,"Crítico", RJ.replace('#','')],
+  ["Coclé",        214,  77, 137, 2.24,"Severo",  DO.replace('#','')],
+  ["Chiriquí",    1031, 430, 601, 2.17,"Severo",  DO.replace('#','')],
+  ["Colón",       1795,1015, 780, 1.43,"Severo",  DO.replace('#','')],
+  ["Panamá",      2316,1560, 756, 1.39,"Severo",  DO.replace('#','')],
+  ["Herrera",      101, 163, -62, 0.62,"Normal",  VE.replace('#','')],
+  ["Darién",         9,  18,  -9, 0.50,"Normal",  VE.replace('#','')],
+];
+const tp=document.getElementById('tbl-prov');
+provs.forEach(([n,p,c,s,d,nv,col])=>{
+  const sc=s<0?VE:RJ;
+  tp.innerHTML+=`<tr><td>${n}</td><td>${p.toLocaleString()}</td><td>${c.toLocaleString()}</td><td style="color:${sc};font-weight:700">${s>0?'+':''}${s}</td><td>${d.toFixed(2)}</td><td><span class="badge" style="background:#${col}">${nv}</span></td></tr>`;
+});
+
+// ── Tabla sexo ──────────────────────────────────────────────
+const hmD=[
+  ["Enero",   23215,1133,24348],["Febrero",23201,1126,24327],
+  ["Abril",   23418,1128,24546],["Mayo",   23457,1124,24581],
+  ["Junio",   23606,1127,24733],["Julio",  23395,1051,24446],
+  ["Agosto",  23421,1041,24462],["Septiembre",23531,1045,24576],
+  ["Diciembre",23776,1066,24842],
+];
+const ts=document.getElementById('tbl-sexo');
+hmD.forEach(([m,h,mu,t])=>{
+  ts.innerHTML+=`<tr><td>${m}</td><td style="color:${CE};font-weight:600">${h.toLocaleString()}</td><td style="color:${RJ};font-weight:600">${mu.toLocaleString()}</td><td><strong>${t.toLocaleString()}</strong></td><td style="color:${CE}">${(h/t*100).toFixed(1)}%</td><td style="color:${RJ}">${(mu/t*100).toFixed(1)}%</td></tr>`;
+});
+ts.innerHTML+=`<tr style="background:#EBF2FA"><td><strong>PROMEDIO</strong></td><td style="color:${CE};font-weight:700">23,447</td><td style="color:${RJ};font-weight:700">1,093</td><td><strong>24,540</strong></td><td style="color:${CE};font-weight:700">95.5%</td><td style="color:${RJ};font-weight:700">4.5%</td></tr>`;
+
+// ── G1 Evolución ────────────────────────────────────────────
+const tend=[27730-466,27730-932,27730-1398,27730-1864,27730-2330,27730-2796,
+            27730-3262,27730-3728,27730-4194,27730-4660,27730-5126,27730-5592];
+new Chart(document.getElementById('g1'),{type:'line',data:{labels:M,datasets:[
+  {label:'PPL Real',data:PPL,borderColor:AZ,backgroundColor:'rgba(26,58,92,.08)',borderWidth:2.5,pointBackgroundColor:AZ,pointRadius:5,fill:true,tension:.3},
+  {label:'Tendencia (y=27,730−466x)',data:tend,borderColor:RJ,borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false,tension:.2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index',intersect:false}},
+  scales:{y:{min:20000,max:29000,ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Población Penitenciaria'}},x:{title:{display:true,text:'Mes 2025'}}}}});
+
+// ── G2 Barras apiladas ──────────────────────────────────────
+new Chart(document.getElementById('g2'),{type:'bar',data:{labels:M,datasets:[
+  {label:'Condenados',data:COND,backgroundColor:AZ},
+  {label:'Procesados',data:PROC,backgroundColor:CE}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{mode:'index'}},
+  scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Cantidad de PPL'}}}}});
+
+// ── G3 Población vs Capacidad ───────────────────────────────
+new Chart(document.getElementById('g3'),{type:'bar',data:{
+  labels:provs.map(p=>p[0]),
+  datasets:[{label:'Población actual',data:provs.map(p=>p[1]),backgroundColor:AZ},{label:'Capacidad instalada',data:provs.map(p=>p[2]),backgroundColor:DO}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Personas Privadas de Libertad'}}}}});
+
+// ── G4 Hacinamiento horizontal ──────────────────────────────
+new Chart(document.getElementById('g4'),{type:'bar',data:{
+  labels:provs.map(p=>p[0]),
+  datasets:[{label:'Índice de Ocupación (%)',data:provs.map(p=>p[4]*100),backgroundColor:provs.map(p=>'#'+p[6])}]
+},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.toFixed(0)}%`}}},
+  scales:{x:{min:0,max:650,ticks:{callback:v=>v+'%'},title:{display:true,text:'Índice de Ocupación (%)'}},y:{ticks:{font:{size:11}}}}}});
+
+// ── G5 Pasteles ─────────────────────────────────────────────
+new Chart(document.getElementById('g5a'),{type:'pie',data:{
+  labels:['Hombres (95.5%)','Mujeres (4.5%)'],
+  datasets:[{data:[23447,1093],backgroundColor:[AZ,CE],borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+new Chart(document.getElementById('g5b'),{type:'pie',data:{
+  labels:['Condenados (64.5%)','Procesados (35.5%)'],
+  datasets:[{data:[15916,8784],backgroundColor:[AZ,DO],borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+
+// ── G6 Predictivo ───────────────────────────────────────────
+const labG6=[...M,'Ene26','Feb26','Mar26'];
+const realG6=[...PPL,null,null,null];
+const tendG6=[...tend,21671,21205,20739];
+const proyG6=[null,null,null,null,null,null,null,null,null,null,null,null,21671,21205,20739];
+new Chart(document.getElementById('g6'),{type:'line',data:{labels:labG6,datasets:[
+  {label:'Datos reales 2025',data:realG6,borderColor:AZ,backgroundColor:'rgba(26,58,92,.06)',pointBackgroundColor:AZ,pointRadius:5,fill:true,tension:.3,spanGaps:false},
+  {label:'Regresión (R²=0.41)',data:tendG6,borderColor:RJ,borderDash:[6,4],pointRadius:0,fill:false,tension:.2,spanGaps:true},
+  {label:'Proyección 2026',data:proyG6,borderColor:RJ,backgroundColor:'rgba(192,57,43,.08)',pointBackgroundColor:RJ,pointRadius:7,pointStyle:'rectRot',fill:false,spanGaps:false}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index',intersect:false}},
+  scales:{y:{min:19000,max:29000,ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Población Penitenciaria'}},x:{title:{display:true,text:'Mes'}}}}});
+
+// ── G7 Variación mensual ────────────────────────────────────
+const vm=M.slice(1).map((_,i)=>PPL[i+1]-PPL[i]);
+new Chart(document.getElementById('g7'),{type:'bar',data:{labels:M.slice(1),datasets:[
+  {label:'Variación positiva',data:vm.map(v=>v>0?v:0),backgroundColor:RJ},
+  {label:'Variación negativa',data:vm.map(v=>v<0?v:0),backgroundColor:VE}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index',intersect:false}},
+  scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Variación mensual (PPL)'},
+    grid:{color:ctx=>ctx.tick.value===0?'rgba(0,0,0,.4)':'rgba(0,0,0,.06)',lineWidth:ctx=>ctx.tick.value===0?2:1}}}}});
+
+// ── Nav activo ──────────────────────────────────────────────
+const secs=document.querySelectorAll('[id]');
+const links=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  links.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Informe Gerencial – Registro de Sustancias CT2 Guatemala 2023</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:#F0F2F5;color:#2C3E50;font-size:14px;}
+.nav{background:#1B4F72;position:sticky;top:0;z-index:200;padding:0 20px;display:flex;gap:2px;overflow-x:auto;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.81em;white-space:nowrap;padding:13px 11px;border-bottom:3px solid transparent;transition:.2s;}
+.nav a:hover,.nav a.act{color:#fff;border-bottom-color:#F39C12;}
+.cover{background:linear-gradient(160deg,#0D2137 0%,#1B4F72 45%,#2E86C1 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cv-univ{font-size:.77em;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:22px;}
+.cv-badge{display:inline-block;background:#27AE60;color:#fff;font-size:.77em;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 20px;border-radius:20px;margin-bottom:20px;}
+.cover h1{font-size:2.6em;font-weight:700;color:#fff;line-height:1.2;margin-bottom:12px;}
+.cover h2{font-size:1.05em;color:rgba(255,255,255,.8);font-weight:400;margin-bottom:8px;}
+.cover h3{font-size:.92em;color:rgba(255,255,255,.6);font-weight:400;margin-bottom:34px;}
+.cv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-bottom:38px;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);border-radius:30px;padding:7px 17px;font-size:.82em;}
+.cv-div{width:55px;height:3px;background:#F39C12;margin:0 auto 30px;}
+.int-title{font-size:.8em;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:13px;}
+.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:620px;margin:0 auto 32px;}
+.int-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 16px;text-align:left;}
+.int-name{font-size:.87em;font-weight:600;color:#fff;margin-bottom:3px;}
+.int-code{font-size:.75em;color:rgba(255,255,255,.42);font-family:monospace;}
+.cv-foot{font-size:.78em;color:rgba(255,255,255,.3);}
+.page{max-width:1220px;margin:0 auto;padding:22px 18px;}
+.sec{background:#fff;border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.sec-hdr{display:flex;align-items:center;gap:11px;margin-bottom:18px;padding-bottom:13px;border-bottom:2px solid #F0F2F5;}
+.sec-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.s-az{background:#EBF2FA;} .s-ve{background:#EAF7EE;} .s-do{background:#FEF9E7;} .s-mo{background:#F4ECF7;}
+.sec-title{font-size:1.18em;font-weight:700;color:#1B4F72;}
+.sub{font-size:.96em;font-weight:700;color:#2E86C1;margin:17px 0 10px;display:flex;align-items:center;gap:7px;}
+.sub::before{content:'';display:block;width:4px;height:14px;background:#2E86C1;border-radius:2px;}
+.kpi-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px;margin-bottom:20px;}
+.kpi{border-radius:11px;padding:15px;border-left:4px solid #1B4F72;background:#F8FAFD;}
+.kpi.ve{border-left-color:#27AE60;background:#F0FAF3;} .kpi.rj{border-left-color:#C0392B;background:#FDF2F1;}
+.kpi.do{border-left-color:#F39C12;background:#FEF9EE;} .kpi.mo{border-left-color:#8E44AD;background:#F8F0FB;}
+.kpi.te{border-left-color:#16A085;background:#F0F9F7;}
+.kv{font-size:1.75em;font-weight:700;color:#1B4F72;margin-bottom:3px;line-height:1;}
+.kv.ve{color:#27AE60;} .kv.rj{color:#C0392B;} .kv.do{color:#E67E22;} .kv.mo{color:#8E44AD;}
+.kl{font-size:.71em;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px;}
+.ks{font-size:.76em;color:#AAB7B8;}
+.tw{overflow-x:auto;border-radius:9px;border:1px solid #E8ECF0;margin:9px 0;}
+table{width:100%;border-collapse:collapse;font-size:.85em;}
+thead th{background:#1B4F72;color:#fff;padding:10px 12px;text-align:center;font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody td{padding:9px 12px;text-align:center;border-bottom:1px solid #F0F2F5;color:#444;}
+tbody td:first-child{text-align:left;font-weight:600;color:#1B4F72;}
+tbody tr:nth-child(even) td{background:#F8FAFD;}
+tbody tr:hover td{background:#EBF5FB;}
+.badge{display:inline-block;padding:3px 9px;border-radius:10px;font-size:.74em;font-weight:700;color:#fff;}
+.b-ve{background:#27AE60;} .b-rj{background:#C0392B;} .b-do{background:#E67E22;}
+.b-az{background:#1B4F72;} .b-am{background:#F39C12;} .b-mo{background:#8E44AD;}
+.cc{position:relative;margin:13px 0;}
+.cc.h380{height:380px;} .cc.h320{height:320px;} .cc.h280{height:280px;} .cc.h360{height:360px;}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cn{font-size:.78em;color:#7F8C8D;font-style:italic;text-align:center;margin-top:7px;padding:7px 13px;background:#F8FAFD;border-radius:7px;}
+.txt{background:#F8FAFD;border-left:4px solid #2E86C1;padding:12px 15px;border-radius:0 8px 8px 0;margin:9px 0;font-size:.88em;line-height:1.72;color:#444;}
+.txt.ve{border-left-color:#27AE60;} .txt.do{border-left-color:#F39C12;}
+.txt.rj{border-left-color:#C0392B;} .txt.mo{border-left-color:#8E44AD;}
+.s2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.sbox{background:#F8FAFD;border-radius:10px;padding:15px;border:1px solid #E8ECF0;}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #EEF0F3;font-size:.85em;}
+.sr:last-child{border-bottom:none;}
+.sl{color:#7F8C8D;} .sv{font-weight:700;color:#1B4F72;}
+.ref{font-size:.7em;font-weight:400;padding:2px 8px;border-radius:8px;margin-left:6px;}
+.ref-az{background:#D6EAF8;color:#1A5276;}
+.ref-ve{background:#D5F5E3;color:#1E8449;}
+.ref-mo{background:rgba(142,68,173,.15);color:#5B2C6F;}
+.hab{border-radius:11px;padding:18px;margin-bottom:11px;border-left:5px solid #8E44AD;background:#F4ECF7;}
+.hab h4{font-size:.91em;font-weight:700;color:#6C3483;margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hn{background:#8E44AD;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.77em;font-weight:700;flex-shrink:0;}
+.hab p{font-size:.85em;color:#444;line-height:1.65;}
+.haccion{background:rgba(142,68,173,.1);border-radius:6px;padding:8px 11px;margin-top:9px;font-size:.82em;color:#5B2C6F;}
+.hc{background:#FEF9EE;border-left:4px solid #F39C12;border-radius:0 9px 9px 0;padding:12px 15px;margin:7px 0;font-size:.87em;line-height:1.6;}
+.hc strong{color:#E67E22;}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.card{border-radius:12px;padding:18px;}
+.card.concl{background:#EBF2FA;border-top:4px solid #2E86C1;}
+.card.recom{background:#EAF7EE;border-top:4px solid #27AE60;}
+.card h4{font-size:.86em;font-weight:700;color:#1B4F72;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.card.recom h4{color:#1E8449;}
+.cb{font-size:.69em;background:#1B4F72;color:#fff;padding:2px 7px;border-radius:7px;white-space:nowrap;}
+.card.recom .cb{background:#27AE60;}
+.card p{font-size:.83em;color:#444;line-height:1.62;}
+.pc{border-radius:11px;padding:18px;margin-bottom:11px;}
+.pc.p1{background:#FDECEA;border-left:5px solid #C0392B;}
+.pc.p2{background:#FEF9EE;border-left:5px solid #E67E22;}
+.pc.p3{background:#EBF2FA;border-left:5px solid #2E86C1;}
+.pc.p4{background:#EAF7EE;border-left:5px solid #27AE60;}
+.pc h4{font-size:.91em;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pc.p1 h4{color:#922B21;} .pc.p2 h4{color:#784212;} .pc.p3 h4{color:#1A5276;} .pc.p4 h4{color:#1E8449;}
+.pn{color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.77em;font-weight:700;flex-shrink:0;}
+.p1 .pn{background:#C0392B;} .p2 .pn{background:#E67E22;} .p3 .pn{background:#2E86C1;} .p4 .pn{background:#27AE60;}
+.pc p{font-size:.85em;color:#444;line-height:1.65;}
+.pa{border-radius:6px;padding:8px 11px;margin-top:9px;font-size:.82em;}
+.p1 .pa{background:rgba(192,57,43,.1);color:#7B241C;}
+.p2 .pa{background:rgba(230,126,34,.1);color:#784212;}
+.p3 .pa{background:rgba(46,134,193,.1);color:#1A5276;}
+.p4 .pa{background:rgba(39,174,96,.1);color:#1E8449;}
+.pa strong{font-weight:700;}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:11px;}
+.oc{background:#F8FAFD;border-radius:10px;padding:15px;border-top:3px solid #2E86C1;display:flex;gap:11px;}
+.on{width:30px;height:30px;background:#1B4F72;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.83em;flex-shrink:0;}
+.oc h4{font-size:.86em;font-weight:700;color:#1B4F72;margin-bottom:5px;}
+.oc p{font-size:.79em;color:#555;line-height:1.55;}
+footer{background:#1B4F72;color:rgba(255,255,255,.6);text-align:center;padding:20px;font-size:.78em;margin-top:8px;}
+footer strong{color:rgba(255,255,255,.9);}
+@media(max-width:768px){
+  .cover h1{font-size:1.8em;} .int-grid,.cgrid,.s2,.cg{grid-template-columns:1fr;}
+  .kpi-g{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cv-univ">Universidad Mariano Gálvez de Guatemala &nbsp;|&nbsp; Grupo 1 &nbsp;|&nbsp; Informe Gerencial</div>
+  <div class="cv-badge">Informe Gerencial 2023</div>
+  <h1>Registro de Sustancias<br>Centro de Tratamiento CT2</h1>
+  <h2>Análisis Descriptivo, Prescriptivo y Habilidades Directivas</h2>
+  <h3>Guatemala &nbsp;|&nbsp; Período Marzo – Agosto 2023</h3>
+  <div class="cv-chips">
+    <span class="chip">📅 Marzo – Agosto 2023</span>
+    <span class="chip">📋 2,988 Registros</span>
+    <span class="chip">🏥 9 Áreas de Atención</span>
+    <span class="chip">💊 9 Tipos de Sustancias</span>
+    <span class="chip">👥 6 Meses de Datos</span>
+  </div>
+  <div class="cv-div"></div>
+  <div class="int-title">Integrantes del Grupo 1</div>
+  <div class="int-grid">
+    <div class="int-card"><div class="int-name">Elder Denilson Hernández López</div><div class="int-code">1521-21-10977</div></div>
+    <div class="int-card"><div class="int-name">Henry Danilo López Figueroa</div><div class="int-code">1521-21-14118</div></div>
+    <div class="int-card"><div class="int-name">Joshuan Efraín Bran Palencia</div><div class="int-code">1521-20-13701</div></div>
+    <div class="int-card"><div class="int-name">Delia Carmelina Cun Veloso</div><div class="int-code">1521-22-6012</div></div>
+  </div>
+  <div class="cv-foot">Fuente: Base de Datos CT2 – Centro de Tratamiento de Adicciones, Guatemala 2023</div>
+</div>
+
+<nav class="nav">
+  <a href="#resumen">📋 Resumen</a>
+  <a href="#objetivos">🎯 Objetivos</a>
+  <a href="#descriptivo">📊 Descriptivo</a>
+  <a href="#graficos">📈 Gráficos</a>
+  <a href="#hallazgos">🔍 Hallazgos</a>
+  <a href="#prescriptivo">💡 Prescriptivo</a>
+  <a href="#habilidades">🎯 Habilidades</a>
+  <a href="#conclusiones">✅ Conclusiones</a>
+  <a href="#recomendaciones">🚀 Recomendaciones</a>
+  <a href="#plan">📋 Plan de Acción</a>
+</nav>
+
+<div class="page">
+
+<!-- RESUMEN -->
+<div class="sec" id="resumen">
+  <div class="sec-hdr"><div class="sec-ico s-az">📋</div><div class="sec-title">Resumen Ejecutivo</div></div>
+  <div class="kpi-g">
+    <div class="kpi"><div class="kl">Total Registros</div><div class="kv">2,988</div><div class="ks">Marzo – Agosto 2023</div></div>
+    <div class="kpi rj"><div class="kl">Sustancia Principal</div><div class="kv rj">59.7%</div><div class="ks">Alcohol — 1,784 casos</div></div>
+    <div class="kpi do"><div class="kl">Derivación Judicial</div><div class="kv do">59.8%</div><div class="ks">Por Juzgado — 1,788</div></div>
+    <div class="kpi ve"><div class="kl">Tasa de Reconsulta</div><div class="kv ve">79.3%</div><div class="ks">Continuidad del tratamiento</div></div>
+    <div class="kpi mo"><div class="kl">Edad Promedio</div><div class="kv mo">31.2</div><div class="ks">Moda: 17 años — Mediana: 29</div></div>
+    <div class="kpi te"><div class="kl">Usuarios Directos</div><div class="kv" style="color:#16A085">92.0%</div><div class="ks">2,750 de 2,988 registros</div></div>
+  </div>
+  <div class="txt">El Centro de Tratamiento CT2 registró <strong>2,988 atenciones</strong> durante el período Marzo–Agosto 2023. El <strong>alcohol es la sustancia predominante con el 59.7%</strong> de los casos (1,784 registros), seguido por marihuana con 16.5%. El <strong>59.8% de los usuarios fueron derivados por orden judicial</strong>, evidenciando dependencia estructural del sistema de justicia como canal de acceso al tratamiento. La <strong>tasa de reconsulta del 79.3%</strong> refleja continuidad en el modelo de atención. Un dato estadísticamente significativo es que la <strong>moda de edad es 17 años</strong>, confirmando el inicio temprano del consumo en la adolescencia tardía.</div>
+</div>
+
+<!-- OBJETIVOS -->
+<div class="sec" id="objetivos">
+  <div class="sec-hdr"><div class="sec-ico s-az">🎯</div><div class="sec-title">Objetivos del Análisis</div></div>
+  <div class="txt" style="margin-bottom:18px;">El presente informe gerencial se propone alcanzar los siguientes objetivos analíticos para fortalecer la toma de decisiones en el Centro de Tratamiento CT2 de Guatemala:</div>
+  <div class="og">
+    <div class="oc"><div class="on">1</div><div><h4>Caracterizar el perfil del usuario</h4><p>Determinar el perfil sociodemográfico predominante (edad, sexo, estado civil, etnia) de las personas atendidas en el CT2 durante 2023.</p></div></div>
+    <div class="oc"><div class="on">2</div><div><h4>Identificar las sustancias de mayor prevalencia</h4><p>Cuantificar y clasificar las sustancias de mayor frecuencia de consumo para priorizar los recursos terapéuticos del centro.</p></div></div>
+    <div class="oc"><div class="on">3</div><div><h4>Analizar los canales de derivación</h4><p>Evaluar la proporción entre derivaciones judiciales, gubernamentales y voluntarias para entender los mecanismos de acceso al tratamiento.</p></div></div>
+    <div class="oc"><div class="on">4</div><div><h4>Evaluar la continuidad del tratamiento</h4><p>Analizar la tasa de reconsultas, nuevos ingresos y reingresos para determinar la adherencia al modelo terapéutico del CT2.</p></div></div>
+    <div class="oc"><div class="on">5</div><div><h4>Identificar habilidades directivas requeridas</h4><p>Desde el análisis descriptivo, prescribir qué habilidades directivas debe ejercer la dirección del CT2 para mejorar los resultados.</p></div></div>
+    <div class="oc"><div class="on">6</div><div><h4>Formular conclusiones y recomendaciones</h4><p>Traducir los hallazgos estadísticos en acciones concretas que permitan optimizar la gestión y el impacto del Centro de Tratamiento CT2.</p></div></div>
+  </div>
+</div>
+
+<!-- DESCRIPTIVO -->
+<div class="sec" id="descriptivo">
+  <div class="sec-hdr"><div class="sec-ico s-az">📊</div><div class="sec-title">Análisis Descriptivo</div></div>
+
+  <div class="sub">Tabla 1. Distribución por Sustancia</div>
+  <div class="tw"><table>
+    <thead><tr><th>Sustancia</th><th>Total</th><th>% del Total</th><th>Hombres</th><th>Mujeres</th><th>% Masc.</th><th>% Fem.</th><th>Nivel</th></tr></thead>
+    <tbody>
+      <tr><td>Alcohol</td><td>1,784</td><td>59.7%</td><td>1,021</td><td>763</td><td>57.2%</td><td>42.8%</td><td><span class="badge b-rj">Crítico</span></td></tr>
+      <tr><td>Marihuana</td><td>493</td><td>16.5%</td><td>396</td><td>97</td><td>80.3%</td><td>19.7%</td><td><span class="badge b-do">Alto</span></td></tr>
+      <tr><td>Sin Consumo (familiares)</td><td>353</td><td>11.8%</td><td>71</td><td>282</td><td>20.1%</td><td>79.9%</td><td><span class="badge b-ve">Referencia</span></td></tr>
+      <tr><td>Tabaco</td><td>126</td><td>4.2%</td><td>80</td><td>46</td><td>63.5%</td><td>36.5%</td><td><span class="badge b-am">Moderado</span></td></tr>
+      <tr><td>Clorhidrato de Cocaína</td><td>102</td><td>3.4%</td><td>88</td><td>14</td><td>86.3%</td><td>13.7%</td><td><span class="badge b-am">Moderado</span></td></tr>
+      <tr><td>Solventes e Inhalantes</td><td>84</td><td>2.8%</td><td>45</td><td>39</td><td>53.6%</td><td>46.4%</td><td><span class="badge b-az">Bajo</span></td></tr>
+      <tr><td>Cocaínas Fumables</td><td>34</td><td>1.1%</td><td>25</td><td>9</td><td>73.5%</td><td>26.5%</td><td><span class="badge b-az">Bajo</span></td></tr>
+      <tr><td>No Indica</td><td>10</td><td>0.3%</td><td>9</td><td>1</td><td>90.0%</td><td>10.0%</td><td><span class="badge b-az">Bajo</span></td></tr>
+      <tr><td>Heroína</td><td>1</td><td>0.0%</td><td>1</td><td>0</td><td>100%</td><td>0.0%</td><td><span class="badge b-az">Bajo</span></td></tr>
+      <tr><td>Tramadol</td><td>1</td><td>0.0%</td><td>1</td><td>0</td><td>100%</td><td>0.0%</td><td><span class="badge b-az">Bajo</span></td></tr>
+      <tr style="background:#EBF2FA;"><td><strong>TOTAL</strong></td><td><strong>2,988</strong></td><td><strong>100%</strong></td><td><strong>1,737</strong></td><td><strong>1,251</strong></td><td><strong>58.1%</strong></td><td><strong>41.9%</strong></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="cn">Fuente: Hoja "Análisis Descriptivo" — Base de datos CT2 Guatemala 2023. El alcohol representa casi 6 de cada 10 atenciones.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 2. Estadísticos Descriptivos de Edad</div>
+  <div class="s2">
+    <div class="sbox">
+      <div class="sr"><span class="sl">Media (promedio)</span><span class="sv">31.2 años</span></div>
+      <div class="sr"><span class="sl">Mediana</span><span class="sv">29 años</span></div>
+      <div class="sr"><span class="sl">Moda</span><span class="sv" style="color:#C0392B;">17 años ⚠</span></div>
+      <div class="sr"><span class="sl">Desviación estándar</span><span class="sv">13.028</span></div>
+      <div class="sr"><span class="sl">Varianza</span><span class="sv">169.74</span></div>
+      <div class="sr"><span class="sl">Error típico</span><span class="sv">0.238</span></div>
+    </div>
+    <div class="sbox">
+      <div class="sr"><span class="sl">Curtosis</span><span class="sv">0.338 (leptocúrtica)</span></div>
+      <div class="sr"><span class="sl">Coef. de asimetría</span><span class="sv">0.877 (positiva)</span></div>
+      <div class="sr"><span class="sl">Mínimo</span><span class="sv">10 años</span></div>
+      <div class="sr"><span class="sl">Máximo</span><span class="sv">72 años</span></div>
+      <div class="sr"><span class="sl">Rango</span><span class="sv">62 años</span></div>
+      <div class="sr"><span class="sl">Suma total de edades</span><span class="sv">93,135</span></div>
+    </div>
+  </div>
+  <div class="txt rj"><strong>Dato más alarmante — Moda de 17 años:</strong> La edad que más se repite entre los pacientes es 17 años, lo que sugiere un pico crítico de ingresos en la adolescencia tardía. Esto confirma que el inicio del consumo ocurre principalmente antes de los 18 años.</div>
+  <div class="txt"><strong>Curtosis positiva (0.338 — leptocúrtica):</strong> Los datos se concentran más alrededor del promedio que en una distribución normal, con colas más pronunciadas. Hay más pacientes "típicos" cerca de los 31 años, pero también casos extremos en los rangos de 10 y 72 años.</div>
+  <div class="txt do"><strong>Asimetría positiva (0.877):</strong> La distribución tiene una cola hacia la derecha, lo que indica que hay más pacientes jóvenes que viejos, pero existen algunos usuarios de edad avanzada que jalan el promedio hacia arriba respecto a la mediana.</div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 3. Perfil Sociodemográfico General</div>
+  <div class="s2">
+    <div class="sbox">
+      <div class="sr"><span class="sl">Total registros</span><span class="sv">2,988</span></div>
+      <div class="sr"><span class="sl">Sexo masculino</span><span class="sv">1,737 (58.1%)</span></div>
+      <div class="sr"><span class="sl">Sexo femenino</span><span class="sv">1,251 (41.9%)</span></div>
+      <div class="sr"><span class="sl">Edad promedio</span><span class="sv">31.2 años</span></div>
+      <div class="sr"><span class="sl">Edad moda</span><span class="sv" style="color:#C0392B;">17 años</span></div>
+      <div class="sr"><span class="sl">Menores de 18 años</span><span class="sv">491 (16.4%)</span></div>
+      <div class="sr"><span class="sl">Etnia mestiza</span><span class="sv">2,945 (98.6%)</span></div>
+      <div class="sr"><span class="sl">Etnia maya</span><span class="sv">43 (1.4%)</span></div>
+    </div>
+    <div class="sbox">
+      <div class="sr"><span class="sl">Soltero</span><span class="sv">1,920 (64.3%)</span></div>
+      <div class="sr"><span class="sl">Unido</span><span class="sv">514 (17.2%)</span></div>
+      <div class="sr"><span class="sl">Casado</span><span class="sv">368 (12.3%)</span></div>
+      <div class="sr"><span class="sl">Sin religión</span><span class="sv">1,268 (42.4%)</span></div>
+      <div class="sr"><span class="sl">Católico</span><span class="sv">876 (29.3%)</span></div>
+      <div class="sr"><span class="sl">Evangélico</span><span class="sv">803 (26.9%)</span></div>
+      <div class="sr"><span class="sl">Usuarios directos</span><span class="sv">2,750 (92.0%)</span></div>
+      <div class="sr"><span class="sl">Familiares</span><span class="sv">238 (8.0%)</span></div>
+    </div>
+  </div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 4. Tipo de Consulta y Canal de Derivación</div>
+  <div class="s2">
+    <div class="tw"><table>
+      <thead><tr><th>Tipo de Consulta</th><th>Total</th><th>%</th><th>H</th><th>M</th></tr></thead>
+      <tbody>
+        <tr><td>Reconsulta</td><td>2,369</td><td>79.3%</td><td>1,314</td><td>1,055</td></tr>
+        <tr><td>Asistencia</td><td>471</td><td>15.8%</td><td>321</td><td>150</td></tr>
+        <tr><td>Nuevo ingreso</td><td>142</td><td>4.8%</td><td>96</td><td>46</td></tr>
+        <tr><td>Reingreso</td><td>6</td><td>0.2%</td><td>6</td><td>0</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Canal de Derivación</th><th>Total</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>Juzgado</td><td>1,788</td><td>59.8%</td></tr>
+        <tr><td>Programa de Gobierno</td><td>636</td><td>21.3%</td></tr>
+        <tr><td>Voluntario</td><td>551</td><td>18.4%</td></tr>
+        <tr><td>No Indica</td><td>6</td><td>0.2%</td></tr>
+        <tr><td>ONG / Otros / Mun.</td><td>7</td><td>0.2%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="sub" style="margin-top:20px;">Tabla 5. Distribución por Área y Grupo de Edad</div>
+  <div class="s2">
+    <div class="tw"><table>
+      <thead><tr><th>Área de Atención</th><th>Total</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>Terapia Individual</td><td>1,673</td><td>56.0%</td></tr>
+        <tr><td>Terapia Grupal</td><td>298</td><td>10.0%</td></tr>
+        <tr><td>Clínica Médica</td><td>250</td><td>8.4%</td></tr>
+        <tr><td>Terapia Familiar</td><td>195</td><td>6.5%</td></tr>
+        <tr><td>Trabajo Social</td><td>183</td><td>6.1%</td></tr>
+        <tr><td>Captación</td><td>142</td><td>4.8%</td></tr>
+        <tr><td>Talleres Ocupacionales</td><td>247</td><td>8.3%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Grupo de Edad</th><th>Total</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>Menor de 18</td><td>491</td><td>16.4%</td></tr>
+        <tr><td>18 – 24</td><td>640</td><td>21.4%</td></tr>
+        <tr><td>25 – 34</td><td>824</td><td>27.6%</td></tr>
+        <tr><td>35 – 44</td><td>613</td><td>20.5%</td></tr>
+        <tr><td>45 – 54</td><td>237</td><td>7.9%</td></tr>
+        <tr><td>55 o más</td><td>183</td><td>6.1%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="txt" style="margin-top:14px;"><strong>Perfil del usuario predominante:</strong> Hombre soltero (58.1%), mestizo (98.6%), entre 25 y 34 años (27.6%), derivado por un juzgado (59.8%), con reconsultas previas (79.3%). Este perfil orienta dónde focalizar los recursos terapéuticos del CT2.</div>
+  <div class="txt rj"><strong>Alerta — Menores de 18 años y moda de 17:</strong> Los 491 registros de menores (16.4%) y la moda de edad en 17 años confirman que el inicio del consumo ocurre en la adolescencia tardía. El sistema actual no cuenta con protocolos diferenciados para este grupo.</div>
+  <div class="txt do"><strong>Dependencia del canal judicial:</strong> Solo el 18.4% llegó voluntariamente. El 59.8% fue derivado por juzgado, señal de baja percepción de necesidad de tratamiento en la comunidad y escasa cultura de prevención primaria.</div>
+</div>
+
+<!-- GRÁFICOS -->
+<div class="sec" id="graficos">
+  <div class="sec-hdr"><div class="sec-ico s-az">📈</div><div class="sec-title">Gráficos de Análisis</div></div>
+
+  <div class="sub">Gráfico 1. Distribución por Sustancia</div>
+  <div class="cc h380"><canvas id="g1"></canvas></div>
+  <div class="cn">Fuente: Tabla 1. El alcohol representa casi 6 de cada 10 atenciones. La categoría "No Indica" (10 casos) evidencia un hallazgo de calidad de datos.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 2. Registros por Mes — Marzo a Agosto 2023</div>
+  <div class="cc h320"><canvas id="g2"></canvas></div>
+  <div class="cn">Fuente: Base Datos Limpia. Mayo a Agosto concentran el 99.9% de los registros. Marzo y Abril tienen 1 registro cada uno.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 3. Canal de Derivación &nbsp;&nbsp; | &nbsp;&nbsp; Gráfico 4. Tipo de Consulta por Sexo</div>
+  <div class="cgrid">
+    <div><div class="cc h280"><canvas id="g3"></canvas></div></div>
+    <div><div class="cc h280"><canvas id="g4"></canvas></div></div>
+  </div>
+  <div class="cn">Fuente: Tabla 4. El canal judicial (59.8%) domina el acceso al tratamiento. La reconsulta es el tipo más frecuente en ambos sexos.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 5. Grupos de Edad</div>
+  <div class="cc h320"><canvas id="g5"></canvas></div>
+  <div class="cn">Fuente: Tabla 5. El grupo 25-34 es el más numeroso (27.6%). Los menores de 18 (16.4%) y la moda de 17 años son las señales de alerta más importantes del análisis.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 6. Sustancia Principal por Sexo</div>
+  <div class="cc h360"><canvas id="g6"></canvas></div>
+  <div class="cn">Fuente: Tabla 1. El alcohol es prevalente en ambos sexos. Los casos "Sin Consumo" son mayoritariamente femeninos (282 mujeres vs 71 hombres), confirmando que son familiares en terapia familiar.<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+
+  <div class="sub" style="margin-top:22px;">Gráfico 7. Distribución por Área de Atención</div>
+  <div class="cc h320"><canvas id="g7"></canvas></div>
+  <div class="cn">Fuente: Tabla 5. La Terapia Individual absorbe el 56% de la carga. Los talleres ocupacionales representan el componente de reinserción social (8.3%).<br><span style="font-size:.75em;color:#95A5A6;"><strong>Fuente:</strong> Centro de Tratamiento de Adicciones, Guatemala 2023 &nbsp;|&nbsp; <strong>Autor:</strong> Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</span></div>
+</div>
+
+<!-- HALLAZGOS -->
+<div class="sec" id="hallazgos">
+  <div class="sec-hdr"><div class="sec-ico s-do">🔍</div><div class="sec-title">Hallazgos de Calidad de Datos</div></div>
+  <div class="txt do">Durante el proceso de carga, limpieza y validación de la base CT2-2023 se identificaron los siguientes hallazgos que afectan la integridad y consistencia de la información:</div>
+  <div class="hc"><strong>1. Inconsistencia de capitalización en múltiples campos:</strong> Los campos SEXO, ESTADO CIVIL, ETNIA y RELIGIÓN presentaban valores duplicados por diferencias de mayúsculas/minúsculas. Ejemplo: "soltero", "Soltero" y "SOLTERO" como tres categorías distintas. Se normalizaron según el campo.</div>
+  <div class="hc"><strong>2. Error tipográfico en "Clorhidrato de Cocaína":</strong> Registrada como "Clohidráto de Cocaína" (error ortográfico y tilde incorrecta) en 102 registros. Se corrigió al nombre farmacológico correcto.</div>
+  <div class="hc"><strong>3. Sustancia "Sin Consumo" con 3 variantes:</strong> "Sin Consumo", "sin consumo" y "Sin consumo" representaban la misma categoría (353 registros — familiares sin consumo). Se unificaron en una sola entrada.</div>
+  <div class="hc"><strong>4. "Inhalantes" separado de "Solventes e Inhalantes":</strong> 10 registros en minúscula generaban una categoría duplicada. Se reasignaron, llevando el total a 84 registros.</div>
+  <div class="hc"><strong>5. "Alcohol" con registro en minúscula:</strong> 9 registros como "alcohol" estaban separados del grupo principal. Unificados, el total sube a 1,784 casos (59.7%).</div>
+  <div class="hc"><strong>6. Meses de Marzo y Abril con solo 1 registro cada uno:</strong> Se mantienen en el análisis — pueden representar meses de menor afluencia o inicio del registro de datos.</div>
+  <div class="hc"><strong>7. Campo ZONA con 42% de valores nulos:</strong> 1,254 registros sin dato de zona geográfica. Se recomienda establecerlo como campo obligatorio en futuros registros.</div>
+  <div class="hc"><strong>8. Edad mínima de 10 años:</strong> Requiere verificar si corresponde a datos reales o errores de captura, dado que implica atención a niños en etapa de educación primaria.</div>
+</div>
+
+<!-- PRESCRIPTIVO -->
+<div class="sec" id="prescriptivo">
+  <div class="sec-hdr"><div class="sec-ico s-mo">💡</div><div class="sec-title">Análisis Prescriptivo</div></div>
+  <div class="txt mo">Con base en los hallazgos del análisis descriptivo de la base CT2-2023, se identifican las siguientes acciones estratégicas prioritarias para optimizar la gestión del centro y mejorar los resultados de salud pública en Guatemala.</div>
+
+  <div class="pc p1">
+    <h4><span class="pn">1</span> Programa Especializado para Dependencia Alcohólica con Enfoque de Género <span class="ref ref-mo">Ver: Gráfico 1 · Tabla 1</span></h4>
+    <p>Con el 59.7% de los casos relacionados al alcohol y una presencia femenina del 42.8% en esa categoría, se prescribe el diseño de un <strong>protocolo diferenciado por sexo</strong> para el abordaje del alcoholismo, reconociendo que las motivaciones, consecuencias y barreras de tratamiento son distintas para hombres y mujeres.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Crear módulos terapéuticos separados para hombres y mujeres con dependencia alcohólica, incorporando perspectiva de género, roles familiares y violencia doméstica como factores asociados.</div>
+  </div>
+
+  <div class="pc p2">
+    <h4><span class="pn">2</span> Protocolo Interinstitucional con el Organismo Judicial <span class="ref ref-mo">Ver: Gráfico 3 · Tabla 4</span></h4>
+    <p>El 59.8% de derivaciones proviene de juzgados sin criterios clínicos claros. Se prescribe formalizar un <strong>convenio con el Organismo Judicial</strong> que defina criterios de derivación clínicamente fundamentados, mecanismos de seguimiento compartidos y criterios de egreso terapéutico.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Establecer reporte trimestral a los juzgados derivadores con indicadores de adherencia, avance y resultados del tratamiento para cada usuario referido.</div>
+  </div>
+
+  <div class="pc p3">
+    <h4><span class="pn">3</span> Unidad de Atención Especializada para Adolescentes <span class="ref ref-mo">Ver: Gráfico 5 · Tabla 5 · Tabla 2</span></h4>
+    <p>Con 491 menores de 18 años (16.4%) y <strong>moda de edad en 17 años</strong>, se prescribe crear una unidad diferenciada para adolescentes con protocolos adaptados al desarrollo evolutivo, equipo especializado y coordinación con el sistema educativo y la PGN.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Conformar equipo multidisciplinario (psicólogo especialista en adolescentes, trabajador social, pedagogo) dedicado exclusivamente a usuarios menores de 18 años.</div>
+  </div>
+
+  <div class="pc p4">
+    <h4><span class="pn">4</span> Expansión de la Modalidad Grupal y Talleres Ocupacionales <span class="ref ref-mo">Ver: Gráfico 7 · Tabla 5</span></h4>
+    <p>La Terapia Individual absorbe el 56% de la carga generando riesgo de saturación del equipo. Se prescribe <strong>reequilibrar la oferta terapéutica</strong>, llevando la atención grupal del 10% actual al 25%.</p>
+    <div class="pa"><strong>Acción concreta:</strong> Abrir 4 grupos terapéuticos nuevos segmentados por sustancia (alcohol, marihuana, cocaína, inhalantes) con 12 personas por grupo y frecuencia semanal.</div>
+  </div>
+</div>
+
+<!-- HABILIDADES -->
+<div class="sec" id="habilidades">
+  <div class="sec-hdr"><div class="sec-ico s-mo">🎯</div><div class="sec-title">Habilidades Directivas – Acciones desde el Análisis Descriptivo</div></div>
+  <div class="txt mo">El análisis descriptivo de la base CT2-2023 permite identificar <strong>6 habilidades directivas esenciales</strong> que los líderes del centro deben ejercer para transformar los datos estadísticos en mejoras concretas de gestión y calidad asistencial.</div>
+
+  <div class="hab">
+    <h4><span class="hn">1</span> Toma de Decisiones Basada en Datos (Data-Driven Leadership) <span class="ref ref-mo">Ver: Tabla 1 · Tabla 4 · Gráfico 1 · Gráfico 3</span></h4>
+    <p>El 59.7% de casos por alcohol, la moda de edad en 17 años y el 59.8% de derivaciones judiciales son señales claras para reasignar presupuesto y prioridades. Sin leer los propios datos, las decisiones se toman sobre suposiciones.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Implementar tablero de control mensual con KPIs del CT2 (nuevos ingresos, reconsulta, sustancias, derivaciones, grupos de edad) para tomar decisiones semanales basadas en evidencia real.</div>
+  </div>
+
+  <div class="hab">
+    <h4><span class="hn">2</span> Liderazgo Interinstitucional y Gestión de Alianzas Estratégicas <span class="ref ref-mo">Ver: Gráfico 3 · Tabla 4</span></h4>
+    <p>Con el 59.8% de usuarios derivados judicialmente y el 21.3% por programas de gobierno, el Director del CT2 debe ejercer liderazgo activo hacia el exterior, negociando con juzgados, fiscalías y ministerios.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Implementar mecanismo de coordinación trimestral con el Organismo Judicial, MSPAS y SECCATID para alinear protocolos, presupuesto y criterios de derivación.</div>
+  </div>
+
+  <div class="hab">
+    <h4><span class="hn">3</span> Comunicación Estratégica y Gestión de la Información <span class="ref ref-mo">Ver: Hallazgos de Calidad 1–8</span></h4>
+    <p>Los 8 hallazgos de calidad detectados — inconsistencias, duplicados, 42% nulos en ZONA, "No Indica" como categoría — revelan una cultura débil de gestión de la información. La dirección debe institucionalizar estándares.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Establecer Manual de Registro de Datos con definiciones operativas para cada campo y capacitar al 100% del personal, con supervisión mensual de calidad del registro.</div>
+  </div>
+
+  <div class="hab">
+    <h4><span class="hn">4</span> Pensamiento Sistémico y Visión Estratégica <span class="ref ref-mo">Ver: Gráfico 5 · Tabla 2 · Tabla 5</span></h4>
+    <p>La moda de 17 años, el 16.4% de menores, el 41.9% de mujeres usuarias y la variación mensual de 1 a 786 casos revelan un sistema complejo con múltiples dimensiones no visibles en el perfil promedio.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Revisar el modelo de atención para garantizar pertinencia para todos los subgrupos: menores, mujeres, voluntarios, adultos mayores y personas no identificadas (No Indica).</div>
+  </div>
+
+  <div class="hab">
+    <h4><span class="hn">5</span> Gestión del Talento Humano y Desarrollo del Equipo <span class="ref ref-mo">Ver: Gráfico 7 · Tabla 5</span></h4>
+    <p>La Terapia Individual absorbe el 56% de la carga operativa del equipo de psicólogos, generando riesgo de agotamiento profesional. El directivo debe redistribuir cargas y desarrollar competencias en modalidades grupales.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Plan semestral de capacitación en terapia grupal y supervisión clínica mensual con profesional externo para prevenir burnout y fortalecer competencias del equipo.</div>
+  </div>
+
+  <div class="hab">
+    <h4><span class="hn">6</span> Monitoreo, Evaluación e Innovación en el Servicio <span class="ref ref-mo">Ver: Gráfico 4 · Tabla 4</span></h4>
+    <p>La reconsulta del 79.3% puede ser continuidad efectiva o cronicidad sin progreso. Sin evaluación de resultados terapéuticos, la dirección no puede distinguir entre ambos escenarios ni rendir cuentas con evidencia.</p>
+    <div class="haccion"><strong>Acción directiva:</strong> Instrumento de evaluación aplicado al ingreso, a los 3 meses y al egreso, midiendo reducción del consumo, funcionamiento familiar y reinserción social y laboral.</div>
+  </div>
+</div>
+
+<!-- CONCLUSIONES -->
+<div class="sec" id="conclusiones">
+  <div class="sec-hdr"><div class="sec-ico s-ve">✅</div><div class="sec-title">Conclusiones — Una por Integrante del Grupo</div></div>
+  <div class="cg">
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 1</span> Alcohol como Problema de Salud Pública Prioritario <span class="ref ref-az">Ver: Gráfico 1 · Gráfico 6 · Tabla 1</span></h4>
+      <p>Con el 59.7% de los registros relacionados al alcohol, el CT2-2023 confirma que esta sustancia es la principal problemática de adicciones atendida en Guatemala. La distribución entre hombres (57.2%) y mujeres (42.8%) en los casos de alcohol demuestra que el alcoholismo afecta a ambos sexos de forma significativa, demandando protocolos de intervención diferenciados por género que el modelo actual aún no incorpora de forma estructurada.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 2</span> Dependencia Estructural del Canal Judicial como Limitante <span class="ref ref-az">Ver: Gráfico 3 · Gráfico 4 · Tabla 4</span></h4>
+      <p>El 59.8% de usuarios derivados por juzgado y solo el 18.4% voluntarios revela que el sistema de tratamiento opera principalmente como extensión del sistema de justicia, no como un servicio preventivo de salud pública. Esta dependencia estructural limita el alcance del CT2 a quienes ya tienen conflictos legales, dejando sin atención a la mayor parte de la población con problemas de consumo.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 3</span> Crisis Silenciosa por Consumo en Menores — Moda de 17 Años <span class="ref ref-az">Ver: Gráfico 5 · Tabla 2 · Tabla 5</span></h4>
+      <p>Los 491 registros de menores de 18 años (16.4%) y la moda de edad en 17 años representan una señal de alarma epidemiológica de primer orden. El dato estadístico de la moda confirma que el pico de ingreso al sistema de tratamiento ocurre en la adolescencia tardía, con consecuencias neurológicas y sociales de largo plazo que el modelo general de atención del CT2 no está diseñado para abordar con la especificidad requerida.</p>
+    </div>
+    <div class="card concl">
+      <h4><span class="cb">Conclusión 4</span> Modelo de Atención Concentrado con Necesidad de Diversificación <span class="ref ref-az">Ver: Gráfico 7 · Tabla 5 · Tabla 4</span></h4>
+      <p>La concentración del 56% de la atención en Terapia Individual, junto con una tasa de reconsulta del 79.3%, crea un modelo operativo de alta demanda individual sostenida. Sin un sistema de evaluación de resultados que distinga entre continuidad terapéutica efectiva y cronicidad sin progreso, la dirección carece de información clave. La subutilización de la terapia grupal (10%) representa una oportunidad de mejora no aprovechada.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RECOMENDACIONES -->
+<div class="sec" id="recomendaciones">
+  <div class="sec-hdr"><div class="sec-ico s-ve">🚀</div><div class="sec-title">Recomendaciones — Una por Integrante del Grupo</div></div>
+  <div class="cg">
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 1</span> Programa Nacional de Prevención con Enfoque Comunitario <span class="ref ref-ve">Ver: Gráfico 1 · Gráfico 5 · Tabla 1</span></h4>
+      <p>Se recomienda al Ministerio de Salud Pública y al CT2 coordinar un <strong>Programa de Prevención del Alcoholismo</strong> con enfoque comunitario y escolar, orientado a la detección temprana antes de la adolescencia. La moda de 17 años y los 491 menores atendidos demuestran que la intervención debe llegar antes de los 15 años, antes de que el consumo requiera intervención judicial o tratamiento especializado.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 2</span> Convenio Formal con el Organismo Judicial <span class="ref ref-ve">Ver: Gráfico 3 · Gráfico 4 · Tabla 4</span></h4>
+      <p>Se recomienda formalizar un <strong>convenio de colaboración con el Organismo Judicial y el Ministerio Público</strong> que establezca criterios clínicos claros para la derivación al CT2, protocolos de reporte de avance terapéutico hacia los juzgados y criterios de egreso del tratamiento, reduciendo la dependencia de la decisión judicial y mejorando la coordinación entre salud y justicia.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 3</span> Sistema de Evaluación de Resultados e Impacto <span class="ref ref-ve">Ver: Tabla 4 · Gráfico 4 · Gráfico 2</span></h4>
+      <p>Se recomienda implementar un <strong>sistema de evaluación de resultados terapéuticos</strong> que mida no solo el proceso (número de consultas) sino el impacto real: reducción del consumo, reinserción familiar y laboral, calidad de vida y tasas de recaída. El 79.3% de reconsultas requiere ser interpretado con datos de progreso, no solo de asistencia.</p>
+    </div>
+    <div class="card recom">
+      <h4><span class="cb">Recomendación 4</span> Unidad Especializada para Adolescentes con Enfoque Multidisciplinario <span class="ref ref-ve">Ver: Gráfico 5 · Tabla 2 · Tabla 5</span></h4>
+      <p>Se recomienda crear una <strong>Unidad de Atención Integral para Adolescentes</strong> dentro del CT2, con equipo propio (psicólogo especialista en adolescentes, trabajador social, educador), protocolos adaptados al desarrollo evolutivo y coordinación con el sistema educativo y la PGN. La moda de edad en 17 años y los 491 menores atendidos justifican plenamente esta especialización.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- PLAN DE ACCIÓN -->
+<style>
+.plan-kpi-g2{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #E8ECF0;border-radius:9px;overflow:hidden;margin:12px 0;}
+.plan-kpi2{padding:12px 14px;border-right:1px solid #E8ECF0;background:#F8FAFD;}
+.plan-kpi2:last-child{border-right:none;}
+.pk2l{font-size:.69em;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.pk2v{font-size:1em;font-weight:700;color:#1B4F72;line-height:1.2;}
+.pk2s{font-size:.75em;color:#AAB7B8;margin-top:2px;}
+.plan-card2{border-radius:12px;overflow:hidden;border:1px solid #E8ECF0;margin-bottom:18px;}
+.plan-hdr2{display:flex;align-items:center;gap:10px;padding:14px 18px;color:#fff;}
+.pnum2{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85em;flex-shrink:0;}
+.plan-hdr2 h4{font-size:.95em;font-weight:700;flex:1;}
+.pinv2{font-size:.82em;font-weight:700;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:12px;white-space:nowrap;}
+.plan-body2{padding:16px 18px;background:#fff;}
+.plan-desc2{font-size:.85em;color:#555;line-height:1.65;margin-bottom:14px;padding:10px 13px;border-radius:0 8px 8px 0;border-left:3px solid #E8ECF0;}
+.ft2{font-size:.75em;font-weight:700;color:#7F8C8D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.fr2{display:grid;grid-template-columns:130px 1fr 95px;gap:10px;align-items:center;margin-bottom:6px;font-size:.83em;}
+.fp2{color:#7F8C8D;font-size:.78em;}
+.bo2{background:#F0F2F5;border-radius:4px;overflow:hidden;height:22px;}
+.bi2{height:100%;display:flex;align-items:center;padding:0 8px;border-radius:4px;}
+.bi2 span{font-size:.75em;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;}
+.fi2{font-size:.78em;color:#7F8C8D;text-align:right;}
+.ind-g2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;}
+.ind-i2{font-size:.8em;color:#555;display:flex;gap:6px;align-items:flex-start;line-height:1.45;}
+.ind-d2{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.rk-g2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+.rk-i2{font-size:.79em;padding:7px 10px;border-radius:7px;line-height:1.45;}
+.rk-i2 strong{display:block;font-size:.88em;margin-bottom:2px;}
+.gantt-wrap2{overflow-x:auto;margin-top:14px;}
+.gantt-t2{width:100%;border-collapse:collapse;font-size:.8em;min-width:650px;}
+.gantt-t2 th{background:#1B4F72;color:#fff;padding:7px 10px;text-align:center;font-size:.78em;white-space:nowrap;}
+.gantt-t2 th:first-child{text-align:left;min-width:210px;}
+.gantt-t2 td{padding:5px 4px;border-bottom:1px solid #F0F2F5;}
+.gantt-t2 tr:nth-child(even) td{background:#F8FAFD;}
+.gb2{height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+.gb2 span{font-size:.68em;font-weight:600;color:#fff;white-space:nowrap;padding:0 3px;}
+</style>
+
+<div class="sec" id="plan">
+  <div class="sec-hdr"><div class="sec-ico s-ve">📋</div><div class="sec-title">Plan de Acción Gerencial – Detalle por Recomendación</div></div>
+  <div class="txt ve">Basado en las 4 recomendaciones del análisis prescriptivo, se presenta el plan de acción detallado con inversión estimada, plazo, fases de implementación, indicadores de éxito y riesgos para cada iniciativa del Centro de Tratamiento CT2.</div>
+
+  <!-- KPIs globales -->
+  <div class="plan-kpi-g2">
+    <div class="plan-kpi2"><div class="pk2l">Inversión Total Estimada</div><div class="pk2v">$12M–$20M</div><div class="pk2s">USD — 4 planes combinados</div></div>
+    <div class="plan-kpi2"><div class="pk2l">Horizonte de Ejecución</div><div class="pk2v">3 Años</div><div class="pk2s">2026 – 2028</div></div>
+    <div class="plan-kpi2"><div class="pk2l">Población Objetivo</div><div class="pk2v">2,988</div><div class="pk2s">registros · período 2023</div></div>
+    <div class="plan-kpi2"><div class="pk2l">Grupos Prioritarios</div><div class="pk2v">2 críticos</div><div class="pk2s">Menores 18 · dependencia alcohólica</div></div>
+  </div>
+
+  <!-- R1 -->
+  <div class="plan-card2">
+    <div class="plan-hdr2" style="background:#27AE60;">
+      <div class="pnum2">R1</div>
+      <h4>Programa Nacional de Prevención con Enfoque Comunitario</h4>
+      <span class="pinv2">$2–4M USD</span>
+    </div>
+    <div class="plan-body2">
+      <div class="plan-kpi-g2" style="border-color:#EAF7EE;">
+        <div class="plan-kpi2" style="background:#EAF7EE;"><div class="pk2l">Plazo</div><div class="pk2v" style="color:#27AE60;">2 años</div><div class="pk2s">2026–2027</div></div>
+        <div class="plan-kpi2" style="background:#EAF7EE;"><div class="pk2l">Meta de edad</div><div class="pk2v" style="color:#27AE60;">&lt;15 años</div><div class="pk2s">intervención temprana</div></div>
+        <div class="plan-kpi2" style="background:#EAF7EE;"><div class="pk2l">Cobertura</div><div class="pk2v" style="color:#27AE60;">Nacional</div><div class="pk2s">escolar + comunitaria</div></div>
+        <div class="plan-kpi2" style="background:#EAF7EE;"><div class="pk2l">Responsable</div><div class="pk2v" style="color:#27AE60;font-size:.85em;">MSPAS + CT2</div><div class="pk2s">+ MINEDUC</div></div>
+      </div>
+      <div class="plan-desc2" style="border-left-color:#27AE60;">La <strong>moda de edad de 17 años</strong> y los 491 menores atendidos (16.4%) confirman que el consumo inicia antes de la adultez. El programa prioriza intervención escolar entre los 12 y 15 años, antes de que el consumo derive en detención judicial, con componentes diferenciados por sexo dado el 42.8% de mujeres en casos de alcohol.</div>
+      <div class="ft2">Cronograma de fases</div>
+      <div class="fr2"><span class="fp2">T1–T2 2026 — Fase 1</span><div class="bo2"><div class="bi2" style="width:28%;background:#9FE1CB;"><span style="color:#04342C;">Diseño del programa</span></div></div><span class="fi2">$0.3–0.5M</span></div>
+      <div class="fr2"><span class="fp2">T3–T4 2026 — Fase 2</span><div class="bo2"><div class="bi2" style="width:55%;background:#1D9E75;"><span>Piloto en 10 establecimientos</span></div></div><span class="fi2">$0.8–1.2M</span></div>
+      <div class="fr2"><span class="fp2">2027 — Fase 3</span><div class="bo2"><div class="bi2" style="width:100%;background:#0F6E56;"><span>Expansión nacional + evaluación de impacto</span></div></div><span class="fi2">$0.9–2.3M</span></div>
+      <div class="ft2" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g2">
+        <div class="ind-i2"><span class="ind-d2" style="background:#27AE60;"></span>Reducir nuevos ingresos de menores de 18 en ≥20% al cierre 2027</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#27AE60;"></span>Alcanzar ≥50 establecimientos educativos con programa activo</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#27AE60;"></span>Componente específico para mujeres implementado en Fase 2</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#27AE60;"></span>Tasa de detección temprana en menores de 15 años ≥30%</div>
+      </div>
+      <div class="ft2" style="margin-top:14px;">Riesgos principales</div>
+      <div class="rk-g2">
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Baja coordinación interinstitucional</strong>Convenio formal MSPAS–MINEDUC–SECCATID desde T1 2026.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Estigma social hacia el tema</strong>Campaña comunicacional con lenguaje de salud, no policial.</div>
+        <div class="rk-i2" style="background:#EAF7EE;"><strong style="color:#27AE60;">Bajo — Falta de facilitadores capacitados</strong>Programa de formación de docentes como agentes de prevención.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Presupuesto insuficiente MSPAS</strong>Gestionar financiamiento OPS/OMS + fondos SECCATID.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R2 -->
+  <div class="plan-card2">
+    <div class="plan-hdr2" style="background:#2E86C1;">
+      <div class="pnum2">R2</div>
+      <h4>Convenio Formal con el Organismo Judicial</h4>
+      <span class="pinv2">$1–2M USD</span>
+    </div>
+    <div class="plan-body2">
+      <div class="plan-kpi-g2" style="border-color:#EBF2FA;">
+        <div class="plan-kpi2" style="background:#EBF2FA;"><div class="pk2l">Plazo</div><div class="pk2v" style="color:#2E86C1;">18 meses</div><div class="pk2s">2026–2027</div></div>
+        <div class="plan-kpi2" style="background:#EBF2FA;"><div class="pk2l">Meta derivación</div><div class="pk2v" style="color:#2E86C1;">59.6% → 40%</div><div class="pk2s">reducir dependencia judicial</div></div>
+        <div class="plan-kpi2" style="background:#EBF2FA;"><div class="pk2l">Voluntarios</div><div class="pk2v" style="color:#2E86C1;">18.4% → 30%</div><div class="pk2s">usuarios voluntarios</div></div>
+        <div class="plan-kpi2" style="background:#EBF2FA;"><div class="pk2l">Responsable</div><div class="pk2v" style="color:#2E86C1;font-size:.85em;">CT2 + OJ + MP</div><div class="pk2s">+ MSPAS</div></div>
+      </div>
+      <div class="plan-desc2" style="border-left-color:#2E86C1;">El 59.6% de los usuarios llega por orden judicial y solo el 18.4% voluntariamente. Se formaliza un convenio que establezca <strong>criterios clínicos claros para la derivación</strong>, protocolos de reporte de avance terapéutico a los juzgados y criterios de egreso del tratamiento, reduciendo la discrecionalidad judicial.</div>
+      <div class="ft2">Cronograma de fases</div>
+      <div class="fr2"><span class="fp2">T1 2026 — Fase 1</span><div class="bo2"><div class="bi2" style="width:22%;background:#85B7EB;"><span style="color:#042C53;">Negociación convenio</span></div></div><span class="fi2">$0.1–0.2M</span></div>
+      <div class="fr2"><span class="fp2">T2–T3 2026 — Fase 2</span><div class="bo2"><div class="bi2" style="width:55%;background:#378ADD;"><span>Protocolo clínico + sistema de reporte</span></div></div><span class="fi2">$0.4–0.8M</span></div>
+      <div class="fr2"><span class="fp2">T4 2026 — Fase 3</span><div class="bo2"><div class="bi2" style="width:78%;background:#185FA5;"><span>Capacitación jueces y fiscales</span></div></div><span class="fi2">$0.3–0.5M</span></div>
+      <div class="fr2"><span class="fp2">2027 — Fase 4</span><div class="bo2"><div class="bi2" style="width:100%;background:#0C447C;"><span>Operación plena y evaluación</span></div></div><span class="fi2">$0.2–0.5M</span></div>
+      <div class="ft2" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g2">
+        <div class="ind-i2"><span class="ind-d2" style="background:#2E86C1;"></span>Reducir derivaciones judiciales del 59.6% al 40% en 24 meses</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#2E86C1;"></span>Aumentar usuarios voluntarios del 18.4% al 30%</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#2E86C1;"></span>100% de juzgados derivadores reciben reporte trimestral de avance</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#2E86C1;"></span>Protocolo clínico de derivación aprobado y publicado en T2 2026</div>
+      </div>
+      <div class="ft2" style="margin-top:14px;">Riesgos principales</div>
+      <div class="rk-g2">
+        <div class="rk-i2" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Resistencia del Organismo Judicial</strong>Talleres de sensibilización con magistrados + apoyo UNODC y OPS.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Falta de criterios clínicos acordados</strong>Mesa técnica CT2–OJ–MSPAS para definir criterios en T1 2026.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Alta rotación de jueces y fiscales</strong>Programa de inducción estandarizado para nuevos operadores.</div>
+        <div class="rk-i2" style="background:#EAF7EE;"><strong style="color:#27AE60;">Bajo — Sobrecarga operativa del CT2</strong>Contratar coordinador de enlace institucional a tiempo completo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R3 -->
+  <div class="plan-card2">
+    <div class="plan-hdr2" style="background:#8E44AD;">
+      <div class="pnum2">R3</div>
+      <h4>Sistema de Evaluación de Resultados e Impacto</h4>
+      <span class="pinv2">$1.5–3M USD</span>
+    </div>
+    <div class="plan-body2">
+      <div class="plan-kpi-g2" style="border-color:#F4ECF7;">
+        <div class="plan-kpi2" style="background:#F4ECF7;"><div class="pk2l">Plazo</div><div class="pk2v" style="color:#8E44AD;">12 meses</div><div class="pk2s">2026</div></div>
+        <div class="plan-kpi2" style="background:#F4ECF7;"><div class="pk2l">Meta reconsulta</div><div class="pk2v" style="color:#8E44AD;">79.3%</div><div class="pk2s">diferenciada por progreso</div></div>
+        <div class="plan-kpi2" style="background:#F4ECF7;"><div class="pk2l">Mediciones</div><div class="pk2v" style="color:#8E44AD;">3 puntos</div><div class="pk2s">ingreso · 3 meses · egreso</div></div>
+        <div class="plan-kpi2" style="background:#F4ECF7;"><div class="pk2l">Responsable</div><div class="pk2v" style="color:#8E44AD;font-size:.85em;">CT2 + MSPAS</div><div class="pk2s">+ Universidades</div></div>
+      </div>
+      <div class="plan-desc2" style="border-left-color:#8E44AD;">La reconsulta del 79.3% puede ser continuidad efectiva o cronicidad sin progreso. <strong>Sin evaluación de impacto, no es posible distinguirlos.</strong> Se implementa un instrumento de 3 puntos de medición (ingreso, 3 meses, egreso) midiendo reducción de consumo, reinserción familiar y laboral, y calidad de vida.</div>
+      <div class="ft2">Cronograma de fases</div>
+      <div class="fr2"><span class="fp2">T1 2026 — Fase 1</span><div class="bo2"><div class="bi2" style="width:25%;background:#AFA9EC;"><span style="color:#26215C;">Diseño instrumento</span></div></div><span class="fi2">$0.2–0.4M</span></div>
+      <div class="fr2"><span class="fp2">T2 2026 — Fase 2</span><div class="bo2"><div class="bi2" style="width:52%;background:#7F77DD;"><span style="color:#fff;">Validación y piloto con 100 casos</span></div></div><span class="fi2">$0.5–0.8M</span></div>
+      <div class="fr2"><span class="fp2">T3–T4 2026 — Fase 3</span><div class="bo2"><div class="bi2" style="width:100%;background:#534AB7;"><span>Implementación plena + sistema digital</span></div></div><span class="fi2">$0.8–1.8M</span></div>
+      <div class="ft2" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g2">
+        <div class="ind-i2"><span class="ind-d2" style="background:#8E44AD;"></span>100% de usuarios con evaluación al ingreso, 3 meses y egreso</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#8E44AD;"></span>Publicar primer reporte de impacto en T4 2026</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#8E44AD;"></span>Distinguir reconsultas de progreso vs. cronicidad antes del cierre 2026</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#8E44AD;"></span>Sistema digital de evaluación operando sin intervención manual</div>
+      </div>
+      <div class="ft2" style="margin-top:14px;">Riesgos principales</div>
+      <div class="rk-g2">
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Resistencia del equipo a aplicar más instrumentos</strong>Integrar la evaluación al flujo de atención, no como carga adicional.</div>
+        <div class="rk-i2" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Pérdida de seguimiento en usuarios egresados</strong>Protocolo de contacto telefónico a los 3 y 6 meses post-egreso.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Sesgo en auto-reporte de consumo</strong>Combinar auto-reporte con indicadores objetivos (asistencia, laboratorio).</div>
+        <div class="rk-i2" style="background:#EAF7EE;"><strong style="color:#27AE60;">Bajo — Costo de plataforma digital</strong>Explorar herramientas open source o alianza con universidades.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R4 -->
+  <div class="plan-card2">
+    <div class="plan-hdr2" style="background:#C0392B;">
+      <div class="pnum2">R4</div>
+      <h4>Unidad Especializada para Adolescentes con Enfoque Multidisciplinario</h4>
+      <span class="pinv2">$7–11M USD</span>
+    </div>
+    <div class="plan-body2">
+      <div class="plan-kpi-g2" style="border-color:#FDECEA;">
+        <div class="plan-kpi2" style="background:#FDECEA;"><div class="pk2l">Plazo</div><div class="pk2v" style="color:#C0392B;">3 años</div><div class="pk2s">2026–2028</div></div>
+        <div class="plan-kpi2" style="background:#FDECEA;"><div class="pk2l">Población objetivo</div><div class="pk2v" style="color:#C0392B;">491</div><div class="pk2s">menores de 18 años</div></div>
+        <div class="plan-kpi2" style="background:#FDECEA;"><div class="pk2l">Equipo dedicado</div><div class="pk2v" style="color:#C0392B;">3 perfiles</div><div class="pk2s">psicólogo · TS · educador</div></div>
+        <div class="plan-kpi2" style="background:#FDECEA;"><div class="pk2l">Responsable</div><div class="pk2v" style="color:#C0392B;font-size:.85em;">CT2 + MSPAS</div><div class="pk2s">+ PGN + MINEDUC</div></div>
+      </div>
+      <div class="plan-desc2" style="border-left-color:#C0392B;">Los 491 menores de 18 años atendidos (16.4%) y la <strong>moda de edad en 17 años</strong> justifican plenamente una unidad diferenciada. Se crea un equipo propio con protocolos adaptados al desarrollo evolutivo adolescente y coordinación con el sistema educativo, la PGN y la SECCATID, bajo el marco de la Ley de Protección Integral de la Niñez.</div>
+      <div class="ft2">Cronograma de fases</div>
+      <div class="fr2"><span class="fp2">T1–T2 2026 — Fase 1</span><div class="bo2"><div class="bi2" style="width:22%;background:#F09595;"><span style="color:#501313;">Diseño y marco legal</span></div></div><span class="fi2">$0.5–1M</span></div>
+      <div class="fr2"><span class="fp2">T3–T4 2026 — Fase 2</span><div class="bo2"><div class="bi2" style="width:48%;background:#E24B4A;"><span>Contratación y capacitación del equipo</span></div></div><span class="fi2">$1.5–2.5M</span></div>
+      <div class="fr2"><span class="fp2">2027 — Fase 3</span><div class="bo2"><div class="bi2" style="width:75%;background:#A32D2D;"><span>Operación piloto + protocolos diferenciados</span></div></div><span class="fi2">$2.5–3.5M</span></div>
+      <div class="fr2"><span class="fp2">2028 — Fase 4</span><div class="bo2"><div class="bi2" style="width:100%;background:#791F1F;"><span>Operación plena + evaluación e institucionalización</span></div></div><span class="fi2">$2.5–4M</span></div>
+      <div class="ft2" style="margin-top:14px;">Indicadores de éxito</div>
+      <div class="ind-g2">
+        <div class="ind-i2"><span class="ind-d2" style="background:#C0392B;"></span>Equipo multidisciplinario dedicado operativo en T3 2026</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#C0392B;"></span>Protocolos diferenciados para menores aprobados en T4 2026</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#C0392B;"></span>100% de menores atendidos bajo protocolo especializado en 2027</div>
+        <div class="ind-i2"><span class="ind-d2" style="background:#C0392B;"></span>Reducción de recaída en menores ≥25% al cierre de 2028</div>
+      </div>
+      <div class="ft2" style="margin-top:14px;">Riesgos principales</div>
+      <div class="rk-g2">
+        <div class="rk-i2" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Escasez de psicólogos especializados en adolescentes</strong>Convenio con universidades para rotaciones clínicas supervisadas.</div>
+        <div class="rk-i2" style="background:#FDECEA;"><strong style="color:#C0392B;">Alto — Marco legal complejo para menores en tratamiento</strong>Asesoría permanente de la PGN para cumplimiento de la Ley PINA.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Resistencia familiar a tratamiento de menores</strong>Programa de terapia familiar integrado como componente obligatorio.</div>
+        <div class="rk-i2" style="background:#FEF9EE;"><strong style="color:#E67E22;">Medio — Financiamiento insuficiente para 3 años</strong>Gestionar partida presupuestaria plurianual MSPAS + fondos SECCATID.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA MAESTRO -->
+  <div class="sub" style="margin-top:20px;">Cronograma Maestro 2026–2028</div>
+  <div class="gantt-wrap2">
+    <table class="gantt-t2">
+      <thead>
+        <tr>
+          <th>Plan / Fase</th>
+          <th colspan="4">2026</th>
+          <th colspan="4">2027</th>
+          <th colspan="4">2028</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+        </tr>
+      </thead>
+      <tbody id="gantt-ct2"></tbody>
+    </table>
+  </div>
+  <div class="cn">Fuente: Análisis prescriptivo basado en datos CT2 Guatemala 2023 | Autor: Grupo 1 del Curso Modelos para la Toma de Decisiones de la Maestría en Administración de Negocios, UMG, 2026</div>
+</div>
+
+<script>
+(function(){
+  const G2=[
+    {l:"R1 — Programa de Prevención Comunitaria",c:"27AE60",cols:[1,2,3,4,5,6,7,8],isH:true,lbs:{1:"Diseño",3:"Piloto",5:"Expansión Nacional"}},
+    {l:"  Fase 1 — Diseño del programa (T1–T2 2026)",c:"1D9E75",cols:[1,2],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Piloto en establecimientos (T3–T4 2026)",c:"1D9E75",cols:[3,4],isH:false,lbs:{3:""}},
+    {l:"  Fase 3 — Expansión nacional (2027)",c:"1D9E75",cols:[5,6,7,8],isH:false,lbs:{5:""}},
+    {l:"R2 — Convenio con el Organismo Judicial",c:"2E86C1",cols:[1,2,3,4,5,6],isH:true,lbs:{1:"Negoc.",2:"Protocolo",4:"Cap.",5:"Operación"}},
+    {l:"  Fase 1 — Negociación del convenio (T1 2026)",c:"185FA5",cols:[1],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Protocolo clínico + sistema reporte (T2–T3)",c:"185FA5",cols:[2,3],isH:false,lbs:{2:""}},
+    {l:"  Fase 3 — Capacitación judicial (T4 2026)",c:"185FA5",cols:[4],isH:false,lbs:{4:""}},
+    {l:"  Fase 4 — Operación plena (2027 T1–T2)",c:"185FA5",cols:[5,6],isH:false,lbs:{5:""}},
+    {l:"R3 — Sistema de Evaluación de Resultados",c:"8E44AD",cols:[1,2,3,4],isH:true,lbs:{1:"Diseño",2:"Piloto",3:"Implementación"}},
+    {l:"  Fase 1 — Diseño del instrumento (T1 2026)",c:"534AB7",cols:[1],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Validación piloto (T2 2026)",c:"534AB7",cols:[2],isH:false,lbs:{2:""}},
+    {l:"  Fase 3 — Implementación plena (T3–T4 2026)",c:"534AB7",cols:[3,4],isH:false,lbs:{3:""}},
+    {l:"R4 — Unidad Especializada Adolescentes",c:"C0392B",cols:[1,2,3,4,5,6,7,8,9,10,11,12],isH:true,lbs:{1:"Diseño",3:"Contrat.",5:"Piloto",9:"Operación"}},
+    {l:"  Fase 1 — Diseño y marco legal (T1–T2 2026)",c:"A32D2D",cols:[1,2],isH:false,lbs:{1:""}},
+    {l:"  Fase 2 — Contratación y capacitación (T3–T4 2026)",c:"A32D2D",cols:[3,4],isH:false,lbs:{3:""}},
+    {l:"  Fase 3 — Operación piloto (2027)",c:"A32D2D",cols:[5,6,7,8],isH:false,lbs:{5:""}},
+    {l:"  Fase 4 — Operación plena e institucionalización (2028)",c:"A32D2D",cols:[9,10,11,12],isH:false,lbs:{9:""}},
+  ];
+  const tb2=document.getElementById('gantt-ct2');
+  G2.forEach(row=>{
+    const tr=document.createElement('tr');
+    if(!row.isH) tr.style.background='#FAFBFC';
+    const td0=document.createElement('td');
+    td0.textContent=row.l;
+    td0.style.cssText=`font-size:.82em;font-weight:${row.isH?'700':'400'};color:${row.isH?'#'+row.c:'#444'};padding:6px 10px;white-space:nowrap;border-bottom:1px solid #F0F2F5;`;
+    tr.appendChild(td0);
+    for(let j=1;j<=12;j++){
+      const td=document.createElement('td');
+      td.style.cssText='padding:4px 3px;border-bottom:1px solid #F0F2F5;';
+      if(row.cols.includes(j)){
+        const bar=document.createElement('div');
+        bar.className='gb2';
+        bar.style.background='#'+row.c;
+        const lbKey=Object.keys(row.lbs).map(Number).filter(k=>k<=j).pop();
+        if(row.lbs[j]!==undefined&&row.lbs[j]!==''){
+          const sp=document.createElement('span');
+          sp.textContent=row.lbs[j];
+          bar.appendChild(sp);
+        }
+        td.appendChild(bar);
+      } else {
+        td.style.background='#F8FAFD';
+      }
+      tr.appendChild(td);
+    }
+    tb2.appendChild(tr);
+  });
+  const trT=document.createElement('tr');
+  ['Plan','$12M–$20M total','','','','','','','','','','',''].forEach((l,i)=>{
+    const td=document.createElement('td');
+    td.textContent=l;
+    td.style.cssText='padding:9px 10px;font-size:.82em;font-weight:700;color:#1B4F72;background:#EBF2FA;border-top:2px solid #1B4F72;';
+    trT.appendChild(td);
+  });
+  tb2.appendChild(trT);
+})();
+</script>
+
+</div>
+<footer>
+  <strong>Informe Gerencial – Registro de Sustancias CT2 Guatemala 2023</strong><br>
+  Universidad Mariano Gálvez de Guatemala &nbsp;|&nbsp; Grupo 1 &nbsp;|&nbsp;
+  Elder Hernández · Henry López · Joshuan Bran · Delia Cun<br>
+  Fuente: Base de Datos CT2 – Centro de Tratamiento de Adicciones Guatemala 2023 &nbsp;|&nbsp; Total: 2,988 registros
+</footer>
+
+<script>
+const AZ="#1B4F72",CE="#2E86C1",VE="#27AE60",RJ="#C0392B",DO="#F39C12",MO="#8E44AD",TE="#16A085",GR="#AAB7B8";
+
+// G1 — Sustancias (incluye No Indica)
+new Chart(document.getElementById('g1'),{type:'bar',data:{
+  labels:['Alcohol','Marihuana','Sin Consumo','Tabaco','Clor. Cocaína','Solventes/Inh.','Coc. Fumables','No Indica','Otros'],
+  datasets:[{label:'Registros',data:[1784,493,353,126,102,84,34,10,2],
+    backgroundColor:[RJ,MO,GR,DO,CE,TE,AZ,'#BDC3C7','#ECF0F1']}]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.toLocaleString()} casos (${(c.raw/2988*100).toFixed(1)}%)`}}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Número de registros'}},
+    x:{ticks:{maxRotation:15}}}}});
+
+// G2 — Por mes
+new Chart(document.getElementById('g2'),{type:'bar',data:{
+  labels:['Marzo','Abril','Mayo','Junio','Julio','Agosto'],
+  datasets:[{label:'Registros',data:[1,1,736,743,721,786],
+    backgroundColor:[GR,GR,CE,MO,DO,VE]}]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Registros'}}}}});
+
+// G3 — Derivación
+new Chart(document.getElementById('g3'),{type:'pie',data:{
+  labels:['Juzgado (59.8%)','Prog. Gobierno (21.3%)','Voluntario (18.4%)','Otros (0.5%)'],
+  datasets:[{data:[1788,636,551,13],backgroundColor:[RJ,CE,VE,GR],borderWidth:2,borderColor:'#fff'}]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom',labels:{font:{size:10}}}}}});
+
+// G4 — Tipo consulta x sexo
+new Chart(document.getElementById('g4'),{type:'bar',data:{
+  labels:['Reconsulta','Asistencia','Nuevo','Reingreso'],
+  datasets:[
+    {label:'Hombres',data:[1314,321,96,6],backgroundColor:CE},
+    {label:'Mujeres', data:[1055,150,46,0],backgroundColor:RJ}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'top'}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+
+// G5 — Grupos de edad
+new Chart(document.getElementById('g5'),{type:'bar',data:{
+  labels:['Menor de 18','18 – 24','25 – 34','35 – 44','45 – 54','55 o más'],
+  datasets:[{label:'Registros',data:[491,640,824,613,237,183],
+    backgroundColor:[RJ,DO,CE,MO,VE,AZ]}]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} casos (${(c.raw/2988*100).toFixed(1)}%)`}}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Registros'}}}}});
+
+// G6 — Sustancia x sexo
+new Chart(document.getElementById('g6'),{type:'bar',data:{
+  labels:['Alcohol','Marihuana','Sin Consumo','Tabaco','Clor. Cocaína','Solventes','Coc. Fumables'],
+  datasets:[
+    {label:'Hombres',data:[1021,396,71,80,88,45,25],backgroundColor:CE},
+    {label:'Mujeres', data:[763,97,282,46,14,39,9], backgroundColor:RJ}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'top'}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+
+// G7 — Áreas
+new Chart(document.getElementById('g7'),{type:'bar',data:{
+  labels:['Terapia Individual','Terapia Grupal','Clínica Médica','Terapia Familiar','Trabajo Social','Captación','Talleres'],
+  datasets:[{label:'Registros',data:[1673,298,250,195,183,142,247],
+    backgroundColor:[AZ,CE,MO,DO,VE,TE,RJ]}]
+},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{y:{ticks:{callback:v=>v.toLocaleString()},title:{display:true,text:'Registros'}},
+    x:{ticks:{maxRotation:20}}}}});
+
+// Nav activo
+const secs=document.querySelectorAll('[id]');
+const links=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  links.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
