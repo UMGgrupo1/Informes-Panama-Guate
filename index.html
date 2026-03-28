@@ -3,25 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informes Gerenciales - Grupo 1</title>
+    <title>UMG - Maestría en Administración de Negocios | Grupo 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f7f6; }
-        .container { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; margin-bottom: 30px; }
-        .btn { display: block; width: 280px; padding: 15px; margin: 10px auto; text-decoration: none; color: white; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-        .btn-panama { background-color: #0039a6; } /* Azul Panamá */
-        .btn-guate { background-color: #4997d0; } /* Celeste Guatemala */
-        .btn:hover { opacity: 0.8; transform: scale(1.02); }
+        :root {
+            --umg-blue: #0039a6;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header-info {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 { font-size: 1.4rem; color: var(--umg-blue); margin: 5px 0; font-weight: 700; }
+        h3 { font-size: 0.9rem; color: #64748b; margin: 0; text-transform: uppercase; letter-spacing: 1.5px; }
+        .subtitle { font-size: 1.1rem; color: #475569; margin-top: 5px; font-weight: 600; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .member-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--umg-blue);
+            transition: 0.3s;
+        }
+
+        .member-card:hover { background: #eff6ff; }
+
+        .member-card p { margin: 2px 0; }
+        .member-name { font-weight: 700; color: #0f172a; font-size: 0.95rem; }
+        .member-id { color: #2563eb; font-weight: 600; font-size: 0.85rem; }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-panama { background: linear-gradient(135deg, #0039a6 0%, #1e40af 100%); }
+        .btn-guatemala { background: linear-gradient(135deg, #4997d0 0%, #2e648c 100%); }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            filter: brightness(1.1);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 550px) {
+            .team-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>📊 Informes Gerenciales</h1>
-        <p>Seleccione el informe que desea visualizar:</p>
-        
-        <a href="Panama.html" class="btn btn-panama">🇵🇦 Población Penitenciaria Panamá</a>
-        <a href="Guatemala.html" class="btn btn-guate">🇬🇹 Registro de Sustancias Guatemala</a>
-        
+        <div class="header-info">
+            <h3>Universidad Mariano Gálvez</h3>
+            <h1>Maestría en Administración de Negocios</h1>
+            <p class="subtitle">Grupo No. 1</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="member-card">
+                <p class="member-name">Elder Denilson Hernández López</p>
+                <p class="member-id">1521-21-10977</p>
+            </div>
+            <div class="member-card">
+                <p class="member-name">Henry Danilo López Figueroa</p>
+                <p class="member-id">1521-21-14118</p>
+            </div>
+            <div class="member-card">
+                <p class="member-name">Joshuan Efraín Bran Palencia</p>
+                <p class="member-id">1521-20-13701</p>
+            </div>
+            <div class="member-card">
+                <p class="member-name">Delia Carmelina Cun Veloso</p>
+                <p class="member-id">1521-22-6012</p>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="Panama.html" class="btn btn-panama">
+                <span><i class="fas fa-chart-line"></i> &nbsp; Informe Panamá 2025</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+
+            <a href="Guatemala.html" class="btn btn-guatemala">
+                <span><i class="fas fa-vial-circle-check"></i> &nbsp; Informe Guatemala 2023</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="footer">
+            Portal de Informes Gerenciales &copy; 2026
+        </div>
     </div>
+
 </body>
 </html>
